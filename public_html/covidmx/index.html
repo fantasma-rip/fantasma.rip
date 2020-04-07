@@ -198,10 +198,10 @@
                             "</span></div>");
                     }
                     var country = $('#country').val();
-                    var funcionfetch = fetch("https://pomber.github.io/covid19/timeseries.json")
+                    var funcionfetch = fetch("")
                         .then(response => response.json())
                         .then(data => {
-                            data[country].forEach(({
+                            data['QT'].forEach(({
                                     date,
                                     confirmed,
                                     deaths
