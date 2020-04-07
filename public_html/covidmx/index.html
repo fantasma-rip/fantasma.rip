@@ -176,18 +176,42 @@
         <p>Live visualization of infected and deaths by coronavirus.</p>
         <p><small>Feed by Johns Hopkins University.</small></p>
     </div>
-    <div class="datos"></div>
+    <div class="datos" id="metedatos"></div>
     <div class="muertes"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script>
+    /* I put your JSON into an external file, loaded from github */
+var url = "https://covid19.newtondreams.com/api/stats.json";
 
+/* this tells the page to wait until jQuery has loaded, so you can use the Ajax call */
+
+$(document).ready(function(){
+  $.ajax({
+    url: url,
+    dataType: 'json',
+      error: function(){
+        console.log('JSON FAILED for data');
+      },
+    success:function(results){
+  /* the results is your json, you can reference the elements directly by using it here, without creating any additional variables */
+  
+      var cartItemsList = document.getElementById("metedatos");
+
+      results.basket.productList.forEach(function(element) {
+      cartItemsList.insertAdjacentHTML( 'beforeend',"<li>" +              element.product.name + " : " + element.price+ " </li>");
+      }); // end of forEach
+    }  // end of success fn
+   }) // end of Ajax call
+ }) // end of $(document).ready() function
+</script>
     <script>
         (function ($) {
             $(document).ready(function () {
                 $(window).on('load', function () {
 
 
-                    function addList(date, confirmed, deaths) {
+                    function addList(name,confirmed,confirmedDelta,deaths,suspected) {
                         var rconf = confirmed * 0.005;
                         var rdead = (deaths / confirmed) * 100;
                         rdead = rdead.toFixed(2);
@@ -197,20 +221,8 @@
                             confirmed + "</span><span class='deaths'>" + deaths +
                             "</span></div>");
                     }
-                    var country = $('#country').val();
-                    var funcionfetch = fetch("")
-                        .then(response => response.json())
-                        .then(data => {
-                            data['QT'].forEach(({
-                                    date,
-                                    confirmed,
-                                    deaths
-                                }) =>
-                                addList(date, confirmed, deaths)
-                            )
-                        });
 
-
+ 
                     $('#country').on('change', function () {
                         $('.datos').html('');
                         var country = $(this).val();
