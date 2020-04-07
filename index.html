@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fantasma en la Máquina // _creative coding</title>
+    <link href="https://fonts.googleapis.com/css?family=Cutive+Mono|Open+Sans&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: black;
+            margin: 0;
+            /* width: 100%; */
+        }
+
+        #wrapper{
+            width: 100%;
+            height: 100%;
+        }
+
+        #titulo {
+            color: #74ee15;
+            font-family: 'Cutive Mono', monospace;
+            font-size: 2.3rem;
+            word-wrap: break-word;
+        }
+
+        ul {
+            width: auto;
+            display: block;
+            padding: 0;
+            font-size: 7rem;
+        }
+
+        a {
+            color: #4deeea;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        a:hover {
+            color: #ffe700;
+        }
+
+        .secreto {
+            color: white;
+            margin-left: 1rem;
+            margin-right: 0.5rem;
+
+        }
+
+        #tituloTitulo{
+            color: #f000ff;
+        }
+
+        #blink {
+            color: red;
+            font-size: 1.5rem;
+
+        }
+
+        .fecha {
+            font-size: 0.7rem;
+            color: gray;
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        #bb{
+            animation: 1.3 parpadear step-start  infinite;
+            -webkit-animation: 1.3s parpadear step-start  infinite;
+            -moz-animation: 1.3 parpadear step-start  infinite;
+            font-size: 1.5rem;
+
+        }
+
+        @-moz-keyframes parpadear {
+            0% {
+                opacity: 1.0;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 1.0;
+            }
+        }
+
+        @-webkit-keyframes parpadear {
+            0% {
+                opacity: 1.0;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 1.0;
+            }
+        }
+
+        @keyframes parpadear {
+            0% {
+                opacity: 1.0;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 1.0;
+            }
+        }
+
+        a:after{
+            content: '⿁';
+            color: white;
+        }
+
+    </style>
+</head>
+
+<body onload="scrlsts()">
+
+<div id="wrapper">
+
+    <h2 id="titulo"><span id="tituloTitulo"> Fantasma en la Máquina //</span> <span id="bb">{{todo se almacena}}</span> <span id="blink"></span> </h2>
+    <ul>
+        <li>
+            <a href="exp/01">
+                Exp <span class="numero"> </span> 1.(ömr)
+            </a>
+            <a href="exp/02">
+                Exp <span class="numero"></span> 2.(juän)
+            </a>
+            <a href="exp/03">
+                Exp <span class="numero"></span> 3.(ömm)
+            </a>
+            <a href="exp/04">
+                Exp <span class="numero"></span> 4.(ömm)
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+
+    <script>
+        //Marquee title
+        var tituloDocument = " Fantasma en la máquina // _creative_coding. //";
+
+        function scrlsts() {
+            tituloDocument = tituloDocument.substring(1, tituloDocument.length) + tituloDocument.substring(0, 1);
+            document.title = tituloDocument;
+            setTimeout("scrlsts()", 300);
+        }
+
+        //Esribir
+        var titulo = document.querySelector('#titulo');
+        var blink = document.querySelector('#blink');
+        var numeroExp = document.querySelectorAll('.numero');
+
+        numeroExp.forEach(element => {
+            element.innerHTML = Math.random().toFixed(3);
+        });
+
+        document.addEventListener('keydown', escribir => {
+            const key = event.key.toLowerCase();
+            if (key === 'backspace' || key === 'enter' || key === 'space' || key === 'capslock' || key ===
+                'tab') {
+                key.fontSize = '0.1rem';
+                var newSpan = document.createElement('span');
+                newSpan.className = 'secreto';
+                newSpan.innerHTML = key;
+                blink.appendChild(newSpan);
+            } else {
+                key.fontSize = '1.5rem';
+                blink.innerHTML += key;
+            }
+
+            // titulo.appendChild(( () => {
+            //     var hora = Date();
+            //     var newFecha = document.createElement('span');
+            //     newFecha.className = 'fecha';
+            //     newFecha.textContent = String(hora);
+            //     return newFecha;
+            // })());
+        });
+
+        window.onmousemove = () => {
+            numeroExp.forEach(element => {
+                element.innerHTML = Math.random().toFixed(3);
+            });
+        }
+    </script>
+</body>
+
+</html>
