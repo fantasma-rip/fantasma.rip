@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coronachango</title>
+</head>
+
+<body>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inria+Sans&family=Rubik+Mono+One&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            font-family: 'Inria Sans', sans-serif;
+            background: #0f0f0f;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Rubik Mono One', sans-serif;
+        }
+
+        .datos_start {
+            color: #f1d7d9;
+            position: absolute;
+            top: 10vw;
+            left: 10vw;
+            z-index: 10;
+        }
+
+        .datos_start select {
+            margin: 1vw 0;
+            font-weight: 100;
+            font-size: 3vw;
+            color: #36e283;
+            text-transform: uppercase;
+            background: transparent;
+            border: 0;
+            width: 40vw;
+            cursor: pointer;
+            min-width: 300px;
+        }
+
+        .datos_start select option {
+            color: #151515;
+        }
+
+        .datos_start p {
+            margin: 1vw 0;
+            font-size: 2vw;
+        }
+
+        .datos {
+            overflow: hidden;
+            z-index: 9;
+            width: 100%;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 5vw 0;
+        }
+
+        .datos .cadadia {
+            font-family: monospace;
+            padding: 0;
+            font-size: 0;
+            margin: 0vw;
+            width: 1vw;
+            flex: none;
+            position: relative;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #f1d7d9;
+            transition: ease all 100ms;
+        }
+
+        .datos .cadadia:hover {
+            background: #36e283;
+            opacity: 1;
+        }
+
+        .datos .cadadia span {
+            opacity: 0;
+            position: absolute;
+            width: 5vw;
+            font-size: 1.2vw;
+            font-weight: bold;
+            line-height: 5vw;
+            height: 5vw;
+            left: -2.5vw;
+            border-radius: 50%;
+        }
+
+        .datos .cadadia:hover span {
+            opacity: 1;
+        }
+
+        .datos .cadadia span.confirmed {
+            border: 1px solid #e2ab36;
+            color: #e2ab36;
+            top: -8vw;
+        }
+
+        .datos .cadadia span.deaths {
+            border: 1px solid #e24d36;
+            color: #e24d36;
+            bottom: -8vw;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+    <div class="datos_start">
+        <select id="country" name="country" class="form-control">
+            <option value="Argentina">Argentina</option>
+            <option value="Australia">Australia</option>
+            <option value="Brazil">Brazil</option>
+            <option value="Canada">Canada</option>
+            <option value="Chile">Chile</option>
+            <option value="China">China</option>
+            <option value="Colombia">Colombia</option>
+            <option value="Costa Rica">Costa Rica</option>
+            <option value="Cuba">Cuba</option>
+            <option value="Ecuador">Ecuador</option>
+            <option value="Finland">Finland</option>
+            <option value="France">France</option>
+            <option value="Germany">Germany</option>
+            <option value="India">India</option>
+            <option value="Iraq">Iraq</option>
+            <option value="Ireland">Ireland</option>
+            <option value="Israel">Israel</option>
+            <option value="Italy">Italy</option>
+            <option value="Luxembourg">Luxembourg</option>
+            <option value="Mexico" selected>Mexico</option>
+            <option value="Netherlands">Netherlands</option>
+            <option value="Panama">Panama</option>
+            <option value="Paraguay">Paraguay</option>
+            <option value="Peru">Peru</option>
+            <option value="Philippines">Philippines</option>
+            <option value="Poland">Poland</option>
+            <option value="Portugal">Portugal</option>
+            <option value="Russia">Russia</option>
+            <option value="Saudi Arabia">Saudi Arabia</option>
+            <option value="Singapore">Singapore</option>
+            <option value="South Africa">South Africa</option>
+            <option value="Spain">Spain</option>
+            <option value="Sweden">Sweden</option>
+            <option value="Switzerland">Switzerland</option>
+            <option value="Thailand">Thailand</option>
+            <option value="Turkey">Turkey</option>
+            <option value="Ukraine">Ukraine</option>
+            <option value="United Arab Emirates">United Arab Emirates</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="US">United States</option>
+            <option value="Uruguay">Uruguay</option>
+            <option value="Venezuela">Venezuela</option>
+        </select>
+        <p>Live visualization of infected and deaths by coronavirus.</p>
+        <p><small>Feed by Johns Hopkins University.</small></p>
+    </div>
+    <div class="datos"></div>
+    <div class="muertes"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                $(window).on('load', function () {
+
+
+                    function addList(date, confirmed, deaths) {
+                        var rconf = confirmed * 0.005;
+                        var rdead = (deaths / confirmed) * 100;
+                        rdead = rdead.toFixed(2);
+                        zinde = rconf.toFixed(0);
+                        $('.datos').append("<div class='cadadia' style='height: " + rconf +
+                            "vw;'><span class='confirmed'>" +
+                            confirmed + "</span><span class='deaths'>" + deaths +
+                            "</span></div>");
+                    }
+                    var country = $('#country').val();
+                    var funcionfetch = fetch("https://pomber.github.io/covid19/timeseries.json")
+                        .then(response => response.json())
+                        .then(data => {
+                            data[country].forEach(({
+                                    date,
+                                    confirmed,
+                                    deaths
+                                }) =>
+                                addList(date, confirmed, deaths)
+                            )
+                        });
+
+
+                    $('#country').on('change', function () {
+                        $('.datos').html('');
+                        var country = $(this).val();
+                    var funcionfetch = fetch("https://pomber.github.io/covid19/timeseries.json")
+                        .then(response => response.json())
+                        .then(data => {
+                            data[country].forEach(({
+                                    date,
+                                    confirmed,
+                                    deaths
+                                }) =>
+                                addList(date, confirmed, deaths)
+                            )
+                        });
+                        $('')
+                    });
+
+                });
+            });
+        })(jQuery);
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"
+        integrity="sha256-gSh8eotzb/CVvCREGPUNgIWuDnTYnZvVOQnRrP1eDjI=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/three@0.85.0/examples/js/controls/OrbitControls.js"></script>
+
+
+    <script>
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        var renderer = new THREE.WebGLRenderer({
+            alpha: true
+        });
+        renderer.setClearColor(0xffffff, 0);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        window.addEventListener('resize', function () {
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        var light = new THREE.DirectionalLight(0xffffff);
+        light.position.set(0.2, 1, 1).normalize();
+        scene.add(light);
+
+        var poblacion = 1510;
+        var muertos = 50;
+
+
+
+        for (let i = 0; i < poblacion; i++) {
+            if (i < muertos) {
+                var material = new THREE.MeshToonMaterial({
+                    color: 0xe24d36
+                });
+            } else {
+                var material = new THREE.MeshToonMaterial({
+                    color: 0x323232
+                });
+            }
+            var geometry = new THREE.SphereGeometry(0.05, 3, 3);
+            var figura = new THREE.Mesh(geometry, material);
+            figura.position.x = Math.floor(Math.random() * 21) - 10;
+            figura.position.y = Math.floor(Math.random() * 21) - 10;
+            figura.position.z = Math.floor(Math.random() * 21) - 10;
+            scene.add(figura);
+        }
+
+        camera.position.z = 25;
+
+        // lógica del programa
+        var update = function () {
+            camera.position.z -= 0.005;
+        };
+        // dibujar escena
+        var render = function () {
+            renderer.render(scene, camera);
+        };
+
+        // correr loop
+        var GameLoop = function () {
+            requestAnimationFrame(GameLoop);
+            update();
+            render();
+        }
+
+        GameLoop();
+    </script>
+</body>
+
+</html>
