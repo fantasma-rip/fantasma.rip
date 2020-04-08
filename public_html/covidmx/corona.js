@@ -81,7 +81,8 @@
                         scene.add(light);
 
                         var R=10;
-                        for (let i = 0; i < sospechosos;) {
+                        var poblacion = sospechosos + muertes + confirmados;
+                        for (let i = 0; i < poblacion;) {
                             if (i < muertes) {
                                 var material = new THREE.MeshToonMaterial({
                                     color: 0xB72A14
@@ -90,14 +91,11 @@
                                 var material = new THREE.MeshToonMaterial({
                                     color: 0xAED4C2
                                 });
-                            } else {
+                            }else {
                                 var material = new THREE.MeshToonMaterial({
                                     color: 0x6b6b6b
                                 });
                             }
-                            if ($(window).width() < 960) {
-                            } else {
-                             }
 
                              var geometry = new THREE.SphereGeometry(0.2, 3, 3);
                              var figura = new THREE.Mesh(geometry, material);
@@ -115,7 +113,11 @@
                              }
                         }
 
-                        camera.position.z = 32;
+                        if ($(window).width() < 960) {
+                            camera.position.z = 25;
+                        } else {
+                            camera.position.z = 30;
+                         }
 
                         var update = function () {
                             camera.position.z -= 0.001;
@@ -133,8 +135,6 @@
                         GameLoop();
 
                     }
-
-
 
 
 
