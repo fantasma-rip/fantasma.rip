@@ -57,7 +57,7 @@
             font-size: 14px;
             border-radius: 5px;
             position: absolute;
-            top: calc(5vh + 35px);
+            top: 65px;
             left: 0; 
             z-index: 10;
             text-align: center;
@@ -90,14 +90,14 @@
             color: #888;
             position: fixed;
             z-index: 9;
-            bottom: 0;
+            bottom: 10px;
             right: 0;
             width: 100%;
             text-align: center;
         }
 
         .texto2 a {
-            color: #6b6b6b;
+            color: #757575;
         }
         .texto3{
             margin: 1vw;
