@@ -40,8 +40,8 @@
                     function sacargrafica() {
                         $('.datos').html('');
                         $.getJSON(datos, function (data) {
-                            $.each(data.states, function (index, value) {
-                            nombre = value.name;
+                            $.each(data.timeseries, function (index, value) {
+                            fecha = value.date;
                             sospechosos = value.suspected;
                             confirmados = value.confirmed;
                             muertes = value.deaths;

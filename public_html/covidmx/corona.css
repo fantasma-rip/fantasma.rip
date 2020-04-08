@@ -97,12 +97,11 @@
             overflow: hidden;
             z-index: 9;
             width: 100%;
-            position: relative;
-            min-height: 100vh;
+            position: fixed;
             display: flex;
-            pointer-events: none;
-            align-items: center;
-            padding: 5vw 0;
+            align-items: normal;
+            padding: 0;
+            top: 0;
         }
 
         .datos .estadogrph {
