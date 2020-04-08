@@ -13,9 +13,12 @@
 
                     conseguirdatos(clave);
 
+                    var tenerdatos = '';
+                    var error = '';
+
                     function conseguirdatos(clave) {
 
-                        $.getJSON(datos, function (data) {
+                        tenerdatos = $.getJSON(datos, function (data) {
                             $.each(data.statesAsArray, function (index, value) {
                                 if (value.key == clave) {
                                     nombre = value.name;
@@ -30,6 +33,13 @@
                                         muertes);
                                 }
                             });
+                        }).done(function() {
+                            console.log("todo bien");
+                        }).fail(function(tenerdatos, textStatus, error) {
+                            var err = textStatus + ', ' + error;
+                            console.log("fallo: " + err);
+                        }).always(function() {
+                            console.log("completo");
                         });
 
                     }
