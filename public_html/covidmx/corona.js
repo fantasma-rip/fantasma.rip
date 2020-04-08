@@ -75,7 +75,8 @@
                         });
                         renderer.setClearColor(0xE4E2DE, 0);
                         renderer.setSize(window.innerWidth, window.innerHeight);
-                        document.body.appendChild(renderer.domElement);
+                        container = document.getElementById( 'wrappi' );
+                        container.appendChild(renderer.domElement);
 
                         window.addEventListener('resize', function () {
                             var width = window.innerWidth;
