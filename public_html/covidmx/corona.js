@@ -129,6 +129,12 @@
 
 
 
+                    $('.nextarr').click(function() {
+                        $('#estado option:selected').next().attr('selected', 'selected');
+                    });
+                    $('.prevarr').click(function() {
+                        $('#estado option:selected').prev().attr('selected', 'selected');
+                    });
 
                     $('#estado').on('change', function () {
                         $('.datos').html('');

@@ -159,8 +159,10 @@
             color: #b72a14;
             padding: 5px;
             z-index: 9999;
+            cursor: pointer;
             width: 10vw;
             height: 10vw;
+            text-align: center;
         }
         .prevarr {
             position: fixed;
@@ -169,8 +171,10 @@
             color: #b72a14;
             padding: 5px;
             z-index: 9999;
+            cursor: pointer;
             width: 10vw;
             height: 10vw;
+            text-align: center;
         }
         canvas {
             position: absolute;
