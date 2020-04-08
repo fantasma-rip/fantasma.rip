@@ -1,0 +1,167 @@
+
+        @import url('https://fonts.googleapis.com/css2?family=Inria+Sans&family=Rubik+Mono+One&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            font-family: 'Inria Sans', sans-serif;
+            background: #151515;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Rubik Mono One', sans-serif;
+        }
+
+
+        select#estado {
+            margin: 1vw 0;
+            font-weight: 100;
+            font-size: 3vw;
+            color: #ffffff;
+            text-transform: uppercase;
+            background: hsla(0, 0%, 5%, 0.95);
+            border: 1px solid #B72A14;
+            box-shadow: 0px 4px 10px #151515;
+            width: 80vw;
+            cursor: pointer;
+            position: fixed;
+            letter-spacing: 1px;
+            bottom: 8vh;
+            z-index: 999999;
+            left: 10vw;
+            padding: 4vw;
+            border-radius: 5px;
+        }
+
+        select#estado option {
+            color: #151515;
+            background: #f0f0f0;
+        }
+
+
+        .texto1 {
+            margin: 0;
+            background: hsla(0, 0%, 5%, 0.95);
+            color: #f0f0f0;
+            padding: 2vw 4vw;
+            font-size: 4vw;
+            border-radius: 5px;
+            position: absolute;
+            top: 10vw;
+            left: 10vw;
+            z-index: 10;
+            width: 80vw;
+        }
+
+        .texto1 b {
+            margin: 0;
+        }
+
+        .texto1 b span {}
+
+        .texto1 #sospechosos {
+            color: #6b6b6b;
+        }
+
+        .texto1 #infectados {
+            color: #AED4C2;
+        }
+
+        .texto1 #muertes {
+            color: #B72A14;
+        }
+
+        .texto2 {
+            margin: 1vw;
+            font-size: 2vw;
+            color: #888;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .texto2 a {
+            color: #6b6b6b;
+        }
+
+        .datos {
+            overflow: hidden;
+            z-index: 9;
+            width: 100%;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            pointer-events: none;
+            align-items: center;
+            padding: 5vw 0;
+        }
+
+        .datos .cadadia {
+            font-family: monospace;
+            padding: 0;
+            font-size: 0;
+            margin: 0vw;
+            width: 1vw;
+            flex: none;
+            position: relative;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #E4E2DE;
+            transition: ease all 100ms;
+        }
+
+        .datos .cadadia:hover {
+            background: #B72A14;
+            opacity: 1;
+        }
+
+        .datos .cadadia span {
+            opacity: 0;
+            position: absolute;
+            width: 5vw;
+            font-size: 1.2vw;
+            font-weight: bold;
+            line-height: 5vw;
+            height: 5vw;
+            left: -2.5vw;
+            border-radius: 50%;
+        }
+
+        .datos .cadadia:hover span {
+            opacity: 1;
+        }
+
+        .datos .cadadia span.confirmed {
+            border: 1px solid #AED4C2;
+            color: #AED4C2;
+            top: -8vw;
+        }
+
+        .datos .cadadia span.deaths {
+            border: 1px solid #151515;
+            color: #151515;
+            bottom: -8vw;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        .wrappi {
+            overflow: hidden;
+            width: 100%;
+        }
