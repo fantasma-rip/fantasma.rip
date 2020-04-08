@@ -3,10 +3,7 @@
             $(document).ready(function () {
                 $(window).on('load', function () {
 
-
-                    var datos =
-                        'https://raw.githubusercontent.com/emirelesg/covid19-mx/master/public/api/stats.json';
-
+                    var datos = 'https://raw.githubusercontent.com/emirelesg/covid19-mx/master/public/api/stats.json';
 
                     var nombre = '';
                     var sospechosos = '';
@@ -36,7 +33,7 @@
                         });
 
                     }
-
+/*
                     function sacargrafica() {
                         $('.datos').html('');
                         $.getJSON(datos, function (data) {
@@ -54,7 +51,7 @@
                         });
 
                     }
-                    sacargrafica();
+                    */
 
                     function imprimir(nombre, sospechosos, confirmados, muertes) {
 
@@ -140,24 +137,18 @@
 
                     $('.nextarr').click(function() {
                         $('#estado option:selected').next().attr('selected', 'selected');
-                        $('.datos').html('');
-                        var clave = $('#estado').val();
+                        var clave = $('#estado option:selected').val();
                         conseguirdatos(clave);
-                        sacargrafica();
                     });
                     $('.prevarr').click(function() {
                         $('#estado option:selected').prev().attr('selected', 'selected');
-                        $('.datos').html('');
-                        var clave = $('#estado').val();
+                        var clave = $('#estado option:selected').val();
                         conseguirdatos(clave);
-                        sacargrafica();
                     });
 
                     $('#estado').on('change', function () {
-                        $('.datos').html('');
                         var clave = $(this).val();
                         conseguirdatos(clave);
-                        sacargrafica();
                     });
 
 
