@@ -5,7 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Coronachango</title>
+<!-- Primary Meta Tags -->
+<title>Coronavirus COVID-19 por estado en México :: Fantasma en la Máquina</title>
+<meta name="title" content="Coronavirus COVID-19 por estado en México :: Fantasma en la Máquina">
+<meta name="description" content="Sitio no oficial de gráficas, visualizador de coronavirus covid-19 por estado en méxico. datos actualizados en base a la Secretaría de Salud.">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fantasma.rip/corona/">
+<meta property="og:title" content="Coronavirus COVID-19 por estado en México :: Fantasma en la Máquina">
+<meta property="og:description" content="Sitio no oficial de gráficas, visualizador de coronavirus covid-19 por estado en méxico. datos actualizados en base a la Secretaría de Salud.">
+<meta property="og:image" content="https://fantasma.rip/corona/facebook.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://fantasma.rip/corona/">
+<meta property="twitter:title" content="Coronavirus COVID-19 por estado en México :: Fantasma en la Máquina">
+<meta property="twitter:description" content="Sitio no oficial de gráficas, visualizador de coronavirus covid-19 por estado en méxico. datos actualizados en base a la Secretaría de Salud.">
+<meta property="twitter:image" content="https://fantasma.rip/corona/facebook.png">
+<link rel="stylesheet" href="corona.css">
 </head>
 
 <body>
@@ -22,7 +40,7 @@
             padding: 0;
             width: 100%;
             font-family: 'Inria Sans', sans-serif;
-            background: #0f0f0f;
+            background: #151515;
         }
 
         h1,
@@ -31,34 +49,78 @@
             font-family: 'Rubik Mono One', sans-serif;
         }
 
-        .datos_start {
-            color: #f1d7d9;
+
+        select#estado {
+            margin: 1vw 0;
+            font-weight: 100;
+            font-size: 3vw;
+            color: #ffffff;
+            text-transform: uppercase;
+            background: hsla(0, 0%, 5%, 0.95);
+            border: 1px solid #B72A14;
+            box-shadow: 0px 4px 10px #151515;
+            width: 80vw;
+            cursor: pointer;
+            position: fixed;
+            letter-spacing: 1px;
+            bottom: 8vh;
+            z-index: 999999;
+            left: 10vw;
+            padding: 4vw;
+            border-radius: 5px;
+        }
+
+        select#estado option {
+            color: #151515;
+            background: #f0f0f0;
+        }
+
+
+        .texto1 {
+            margin: 0;
+            background: hsla(0, 0%, 5%, 0.95);
+            color: #f0f0f0;
+            padding: 2vw 4vw;
+            font-size: 4vw;
+            border-radius: 5px;
             position: absolute;
             top: 10vw;
             left: 10vw;
             z-index: 10;
+            width: 80vw;
         }
 
-        .datos_start select {
-            margin: 1vw 0;
-            font-weight: 100;
-            font-size: 3vw;
-            color: #36e283;
-            text-transform: uppercase;
-            background: transparent;
-            border: 0;
-            width: 40vw;
-            cursor: pointer;
-            min-width: 300px;
+        .texto1 b {
+            margin: 0;
         }
 
-        .datos_start select option {
-            color: #151515;
+        .texto1 b span {}
+
+        .texto1 #sospechosos {
+            color: #6b6b6b;
         }
 
-        .datos_start p {
-            margin: 1vw 0;
+        .texto1 #infectados {
+            color: #AED4C2;
+        }
+
+        .texto1 #muertes {
+            color: #B72A14;
+        }
+
+        .texto2 {
+            margin: 1vw;
             font-size: 2vw;
+            color: #888;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .texto2 a {
+            color: #6b6b6b;
         }
 
         .datos {
@@ -68,6 +130,7 @@
             position: relative;
             min-height: 100vh;
             display: flex;
+            pointer-events: none;
             align-items: center;
             padding: 5vw 0;
         }
@@ -82,12 +145,12 @@
             position: relative;
             text-align: center;
             cursor: pointer;
-            border: 1px solid #f1d7d9;
+            border: 1px solid #E4E2DE;
             transition: ease all 100ms;
         }
 
         .datos .cadadia:hover {
-            background: #36e283;
+            background: #B72A14;
             opacity: 1;
         }
 
@@ -108,14 +171,14 @@
         }
 
         .datos .cadadia span.confirmed {
-            border: 1px solid #e2ab36;
-            color: #e2ab36;
+            border: 1px solid #AED4C2;
+            color: #AED4C2;
             top: -8vw;
         }
 
         .datos .cadadia span.deaths {
-            border: 1px solid #e24d36;
-            color: #e24d36;
+            border: 1px solid #151515;
+            color: #151515;
             bottom: -8vw;
         }
 
@@ -123,199 +186,205 @@
             position: absolute;
             top: 0;
             left: 0;
-            pointer-events: none;
             width: 100%;
             height: 100vh;
+            z-index: 1;
+        }
+
+        .wrappi {
+            overflow: hidden;
+            width: 100%;
         }
     </style>
-    <div class="datos_start">
-        <select id="country" name="country" class="form-control">
-            <option value="Argentina">Argentina</option>
-            <option value="Australia">Australia</option>
-            <option value="Brazil">Brazil</option>
-            <option value="Canada">Canada</option>
-            <option value="Chile">Chile</option>
-            <option value="China">China</option>
-            <option value="Colombia">Colombia</option>
-            <option value="Costa Rica">Costa Rica</option>
-            <option value="Cuba">Cuba</option>
-            <option value="Ecuador">Ecuador</option>
-            <option value="Finland">Finland</option>
-            <option value="France">France</option>
-            <option value="Germany">Germany</option>
-            <option value="India">India</option>
-            <option value="Iraq">Iraq</option>
-            <option value="Ireland">Ireland</option>
-            <option value="Israel">Israel</option>
-            <option value="Italy">Italy</option>
-            <option value="Luxembourg">Luxembourg</option>
-            <option value="Mexico" selected>Mexico</option>
-            <option value="Netherlands">Netherlands</option>
-            <option value="Panama">Panama</option>
-            <option value="Paraguay">Paraguay</option>
-            <option value="Peru">Peru</option>
-            <option value="Philippines">Philippines</option>
-            <option value="Poland">Poland</option>
-            <option value="Portugal">Portugal</option>
-            <option value="Russia">Russia</option>
-            <option value="Saudi Arabia">Saudi Arabia</option>
-            <option value="Singapore">Singapore</option>
-            <option value="South Africa">South Africa</option>
-            <option value="Spain">Spain</option>
-            <option value="Sweden">Sweden</option>
-            <option value="Switzerland">Switzerland</option>
-            <option value="Thailand">Thailand</option>
-            <option value="Turkey">Turkey</option>
-            <option value="Ukraine">Ukraine</option>
-            <option value="United Arab Emirates">United Arab Emirates</option>
-            <option value="United Kingdom">United Kingdom</option>
-            <option value="US">United States</option>
-            <option value="Uruguay">Uruguay</option>
-            <option value="Venezuela">Venezuela</option>
+
+    <div class="wrappi">
+        <select id="estado" name="estado">
+            <option value="AG">AGUASCALIENTES</option>
+            <option value="BC">BAJA CALIFORNIA</option>
+            <option value="BS">BAJA CALIFORNIA SUR</option>
+            <option value="CM">CAMPECHE</option>
+            <option value="CO">COAHUILA</option>
+            <option value="CL">COLIMA</option>
+            <option value="CS">CHIAPAS</option>
+            <option value="CH">CHIHUAHUA</option>
+            <option value="CDMX" selected>CIUDAD DE MÉXICO</option>
+            <option value="DG">DURANGO</option>
+            <option value="GJ">GUANAJUATO</option>
+            <option value="GR">GUERRERO</option>
+            <option value="HG">HIDALGO</option>
+            <option value="JA">JALISCO</option>
+            <option value="MX">EDO. MÉXICO</option>
+            <option value="MI">MICHOACÁN</option>
+            <option value="MO">MORELOS</option>
+            <option value="NA">NAYARIT</option>
+            <option value="NL">NUEVO LEÓN</option>
+            <option value="OA">OAXACA</option>
+            <option value="PU">PUEBLA</option>
+            <option value="QT">QUERÉTARO</option>
+            <option value="QR">QUINTANA ROO</option>
+            <option value="SP">SAN LUIS POTOSÍ</option>
+            <option value="SI">SINALOA</option>
+            <option value="SO">SONORA</option>
+            <option value="TB">TABASCO</option>
+            <option value="TM">TAMAULIPAS</option>
+            <option value="TL">TLAXCALA</option>
+            <option value="VE">VERACRUZ</option>
+            <option value="YU">YUCATÁN</option>
+            <option value="ZA">ZACATECAS</option>
         </select>
-        <p>Live visualization of infected and deaths by coronavirus.</p>
-        <p><small>Feed by Johns Hopkins University.</small></p>
+        <div class="texto1"><b id="sospechosos"><span>0</span> Sospechosos</b>, <b id="infectados"><span>0</span>
+                infectados</b> y <b id="muertes"><span>0</span> muertes</b> por COVID-19 en <b id="aqui">Ciudad de
+                México</b>.</div>
+        <div class="texto2">Realizado por el colectivo <a href="https://fantasma.rip">Fantasma en la Máquina</div>.
     </div>
     <div class="datos" id="metedatos"></div>
+    <div class="nextarr">right</div>
     <div class="muertes"></div>
+    </div>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script>
-    /* I put your JSON into an external file, loaded from github */
-var url = "https://covid19.newtondreams.com/api/stats.json";
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"
+        integrity="sha256-gSh8eotzb/CVvCREGPUNgIWuDnTYnZvVOQnRrP1eDjI=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/three@0.85.0/examples/js/controls/OrbitControls.js"></script>
 
-/* this tells the page to wait until jQuery has loaded, so you can use the Ajax call */
-
-$(document).ready(function(){
-  $.ajax({
-    url: url,
-    dataType: 'json',
-      error: function(){
-        console.log('JSON FAILED for data');
-      },
-    success:function(results){
-  /* the results is your json, you can reference the elements directly by using it here, without creating any additional variables */
-  
-      var cartItemsList = document.getElementById("metedatos");
-
-      results.basket.productList.forEach(function(element) {
-      cartItemsList.insertAdjacentHTML( 'beforeend',"<li>" +              element.product.name + " : " + element.price+ " </li>");
-      }); // end of forEach
-    }  // end of success fn
-   }) // end of Ajax call
- }) // end of $(document).ready() function
-</script>
     <script>
         (function ($) {
             $(document).ready(function () {
                 $(window).on('load', function () {
 
 
-                    function addList(name,confirmed,confirmedDelta,deaths,suspected) {
-                        var rconf = confirmed * 0.005;
-                        var rdead = (deaths / confirmed) * 100;
-                        rdead = rdead.toFixed(2);
-                        zinde = rconf.toFixed(0);
-                        $('.datos').append("<div class='cadadia' style='height: " + rconf +
-                            "vw;'><span class='confirmed'>" +
-                            confirmed + "</span><span class='deaths'>" + deaths +
-                            "</span></div>");
+                    var datos =
+                        'https://raw.githubusercontent.com/emirelesg/covid19-mx/master/public/api/stats.json';
+
+
+                    var nombre = '';
+                    var sospechosos = '';
+                    var confirmados = '';
+                    var muertes = '';
+                    var clave = 'CDMX';
+
+                    conseguirdatos(clave);
+
+                    function conseguirdatos(clave) {
+
+                        $.getJSON(datos, function (data) {
+                            $.each(data.statesAsArray, function (index, value) {
+                                if (value.key == clave) {
+                                    nombre = value.name;
+                                    sospechosos = value.suspected;
+                                    confirmados = value.confirmed;
+                                    muertes = value.deaths;
+                                    $('#sospechosos span').html(sospechosos);
+                                    $('#infectados span').html(confirmados);
+                                    $('#muertes span').html(muertes);
+                                    $('#aqui span').html(nombre);
+                                    imprimir(nombre, sospechosos, confirmados,
+                                        muertes);
+                                }
+                            });
+                        });
+
                     }
 
- 
-                    $('#country').on('change', function () {
-                        $('.datos').html('');
-                        var country = $(this).val();
-                    var funcionfetch = fetch("https://pomber.github.io/covid19/timeseries.json")
-                        .then(response => response.json())
-                        .then(data => {
-                            data[country].forEach(({
-                                    date,
-                                    confirmed,
-                                    deaths
-                                }) =>
-                                addList(date, confirmed, deaths)
-                            )
+                    function imprimir(nombre, sospechosos, confirmados, muertes) {
+
+                        $('canvas').remove();
+                        var scene = new THREE.Scene();
+                        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window
+                            .innerHeight, 0.1, 1000);
+
+                        var renderer = new THREE.WebGLRenderer({
+                            alpha: true
                         });
-                        $('')
+                        renderer.setClearColor(0xE4E2DE, 0);
+                        renderer.setSize(window.innerWidth, window.innerHeight);
+                        document.body.appendChild(renderer.domElement);
+
+                        window.addEventListener('resize', function () {
+                            var width = window.innerWidth;
+                            var height = window.innerHeight;
+                            renderer.setSize(width, height);
+                            camera.aspect = width / height;
+                            camera.updateProjectionMatrix();
+                        });
+                        controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+                        var light = new THREE.DirectionalLight(0xE4E2DE);
+                        light.position.set(0.2, 1, 1).normalize();
+                        scene.add(light);
+
+
+                        for (let i = 0; i < sospechosos; i++) {
+                            if (i < muertes) {
+                                var material = new THREE.MeshToonMaterial({
+                                    color: 0xB72A14
+                                });
+                            } else if (i < confirmados && i > muertes) {
+                                var material = new THREE.MeshToonMaterial({
+                                    color: 0xAED4C2
+                                });
+                            } else {
+                                var material = new THREE.MeshToonMaterial({
+                                    color: 0x6b6b6b
+                                });
+                            }
+                            var geometry = new THREE.SphereGeometry(0.2, 3, 3);
+                            var figura = new THREE.Mesh(geometry, material);
+                            figura.position.x = Math.floor(Math.random() * 21) - 10;
+                            figura.position.y = Math.floor(Math.random() * 31) - 15;
+                            figura.position.z = Math.floor(Math.random() * 21) - 10;
+                            scene.add(figura);
+                        }
+
+                        camera.position.z = 32;
+
+                        var update = function () {
+                            camera.position.z -= 0.005;
+                        };
+                        var render = function () {
+                            renderer.render(scene, camera);
+                        };
+
+                        var GameLoop = function () {
+                            requestAnimationFrame(GameLoop);
+                            update();
+                            render();
+                        }
+
+                        GameLoop();
+
+                    }
+
+
+
+
+
+                    var rconf = confirmados * 0.005;
+                    var rdead = (muertes / confirmados) * 100;
+                    rdead = rdead.toFixed(2);
+                    zinde = rconf
+                        .toFixed(0);
+                    $('.datos').append(
+                        "<div class='cadadia' style='height: " + rconf +
+                        "vw;'><span class='confirmed'>" +
+                        confirmados + "</span><span class='deaths'>" +
+                        muertes +
+                        "</span></div>");
+
+
+                    $('#estado').on('change', function () {
+                        $('.datos').html('');
+                        var clave = $(this).val();
+                        conseguirdatos(clave);
                     });
+
+
 
                 });
             });
         })(jQuery);
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"
-        integrity="sha256-gSh8eotzb/CVvCREGPUNgIWuDnTYnZvVOQnRrP1eDjI=" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/three@0.85.0/examples/js/controls/OrbitControls.js"></script>
-
-
-    <script>
-        var scene = new THREE.Scene();
-        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-        var renderer = new THREE.WebGLRenderer({
-            alpha: true
-        });
-        renderer.setClearColor(0xffffff, 0);
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        window.addEventListener('resize', function () {
-            var width = window.innerWidth;
-            var height = window.innerHeight;
-            renderer.setSize(width, height);
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-        });
-        controls = new THREE.OrbitControls(camera, renderer.domElement);
-
-        var light = new THREE.DirectionalLight(0xffffff);
-        light.position.set(0.2, 1, 1).normalize();
-        scene.add(light);
-
-        var poblacion = 1510;
-        var muertos = 50;
-
-
-
-        for (let i = 0; i < poblacion; i++) {
-            if (i < muertos) {
-                var material = new THREE.MeshToonMaterial({
-                    color: 0xe24d36
-                });
-            } else {
-                var material = new THREE.MeshToonMaterial({
-                    color: 0x323232
-                });
-            }
-            var geometry = new THREE.SphereGeometry(0.05, 3, 3);
-            var figura = new THREE.Mesh(geometry, material);
-            figura.position.x = Math.floor(Math.random() * 21) - 10;
-            figura.position.y = Math.floor(Math.random() * 21) - 10;
-            figura.position.z = Math.floor(Math.random() * 21) - 10;
-            scene.add(figura);
-        }
-
-        camera.position.z = 25;
-
-        // lógica del programa
-        var update = function () {
-            camera.position.z -= 0.005;
-        };
-        // dibujar escena
-        var render = function () {
-            renderer.render(scene, camera);
-        };
-
-        // correr loop
-        var GameLoop = function () {
-            requestAnimationFrame(GameLoop);
-            update();
-            render();
-        }
-
-        GameLoop();
     </script>
 </body>
 
