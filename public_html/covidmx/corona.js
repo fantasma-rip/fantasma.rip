@@ -80,7 +80,7 @@
                         light.position.set(0.2, 1, 1).normalize();
                         scene.add(light);
 
-                        var R=100;
+                        var R=10;
                         for (let i = 0; i < sospechosos;) {
                             if (i < muertes) {
                                 var material = new THREE.MeshToonMaterial({
@@ -106,9 +106,6 @@
                              figura.position.y = ( Math.random() - 0.5) * R*2 * Math.random() ;
                              figura.position.z = ( Math.random() - 0.5) * R*2 * Math.random() ;
                          
-                             figura.rotation.x = Math.random();
-                             figura.rotation.y = Math.random();
-                             figura.rotation.z = Math.random();
                          
                              var distance_squared = figura.position.x*figura.position.x + figura.position.y*figura.position.y + figura.position.z*figura.position.z;
                          
