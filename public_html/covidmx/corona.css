@@ -1,221 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans&family=Rubik+Mono+One&display=swap');
 
-        @import url('https://fonts.googleapis.com/css2?family=Inria+Sans&family=Rubik+Mono+One&display=swap');
+* {
+    box-sizing: border-box;
+}
 
-        * {
-            box-sizing: border-box;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: 'Inria Sans', sans-serif;
+    background: #101010;
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            font-family: 'Inria Sans', sans-serif;
-            background: #101010;
-        }
-
-        h1,
-        h2,
-        h3 {
-            font-family: 'Rubik Mono One', sans-serif;
-        }
-
-
-        select#estado {
-            display: block;
-            margin: 1vw 0;
-            font-weight: 100;
-            font-size: 14px;
-            color: #ffffff;
-            text-transform: uppercase;
-            background: hsla(0, 0%, 5%, 0.95);
-            border: 1px solid #B72A14;
-            box-shadow: 0px 4px 10px #101010;
-            width: 80vw;
-            max-width: 500px;
-            cursor: pointer;
-            position: fixed;
-            letter-spacing: 1px;
-            bottom: 5vh;
-            z-index: 999999;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 15px;
-            border-radius: 5px;
-        }
-
-        select#estado option {
-            color: #101010;
-            background: #f0f0f0;
-        }
+h1,
+h2,
+h3 {
+    font-family: 'Rubik Mono One', sans-serif;
+}
 
 
-        .texto1 {
-            margin: 0;
-            background: hsla(0, 0%, 5%, 0.95);
-            color: #f0f0f0;
-            padding: 1vh 4vw;
-            font-size: 14px;
-            border-radius: 5px;
-            position: absolute;
-            top: 65px;
-            left: 0; 
-            z-index: 10;
-            text-align: center;
-            width: 100%;
-        }
+select#estado {
+    display: block;
+    margin: 1vw 0;
+    font-weight: 100;
+    font-size: 14px;
+    color: #ffffff;
+    text-transform: uppercase;
+    background: hsla(0, 0%, 5%, 0.95);
+    border: 1px solid #B72A14;
+    box-shadow: 0px 4px 10px #101010;
+    width: 80vw;
+    max-width: 500px;
+    cursor: pointer;
+    position: fixed;
+    letter-spacing: 1px;
+    bottom: 5vh;
+    z-index: 999999;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 15px;
+    border-radius: 5px;
+}
 
-        .texto1 b {
-            margin: 0;
-        }
+select#estado option {
+    color: #101010;
+    background: #f0f0f0;
+}
 
-        .texto1 b span {
-            
-        }
 
-        .texto1 #sospechosos {
-            color: #6b6b6b;
-        }
+.texto1 {
+    margin: 0;
+    background: hsla(0, 0%, 5%, 0.95);
+    color: #f0f0f0;
+    padding: 1vh 4vw;
+    font-size: 14px;
+    border-radius: 5px;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    z-index: 10;
+    text-align: center;
+    width: 100%;
+}
 
-        .texto1 #infectados {
-            color: #AED4C2;
-        }
+.texto1 b {
+    margin: 0;
+}
 
-        .texto1 #muertes {
-            color: #B72A14;
-        }
+.texto1 b span {}
 
-        .texto2 {
-            margin: 1vw;
-            font-size: 10px;
-            color: #888;
-            position: fixed;
-            z-index: 9;
-            bottom: 10px;
-            right: 0;
-            width: 100%;
-            text-align: center;
-        }
+.texto1 #sospechosos {
+    color: #6b6b6b;
+}
 
-        .texto2 a {
-            color: #757575;
-        }
-        .texto3{
-            margin: 1vw;
-            font-size: 10px;
-            color: #888;
-            position: fixed;
-            z-index: 9;
-            left: 0;
-            right: 0;
-            width: 100%;
-            padding: 5px 20px;
-            text-align: center;
-        }
-        .texto3 a {
-            color: #6b6b6b;
-        }
-        .datos {
-            overflow: hidden;
-            z-index: 9;
-            width: 100%;
-            position: fixed;
-            display: flex;
-            align-items: center;
-            padding: 0;
-            top: 50%;
-            height: auto;
-            pointer-events: none;
-            transform: translateY(-50%);
-            left: 0;
-        }
+.texto1 #infectados {
+    color: #AED4C2;
+}
 
-        .datos .estadogrph {
-            font-family: monospace;
-            padding: 0;
-            font-size: 0;
-            margin: 0vw;
-            width: 3.12vw;
-            flex: none;
-            position: relative;
-            text-align: center;
-            cursor: pointer;
-            background: #303532;
-            opacity: 0.05;
-            transition: ease all 100ms;
-        }
+.texto1 #muertes {
+    color: #B72A14;
+}
 
-        .datos .estadogrph:hover {
-            background: #B72A14;
-            opacity: 1;
-        }
+.texto2 {
+    margin: 1vw;
+    font-size: 10px;
+    color: #888;
+    position: fixed;
+    z-index: 9;
+    bottom: 10px;
+    right: 0;
+    width: 100%;
+    text-align: center;
+}
 
-        .datos .estadogrph span {
-            opacity: 0;
-            position: absolute;
-            width: 5vw;
-            font-size: 1.2vw;
-            font-weight: bold;
-            line-height: 5vw;
-            height: 5vw;
-            left: -2.5vw;
-            border-radius: 50%;
-        }
+.texto2 a {
+    color: #757575;
+}
 
-        .datos .estadogrph:hover span {
-            opacity: 1;
-        }
+.texto3 {
+    margin: 1vw;
+    font-size: 10px;
+    color: #888;
+    position: fixed;
+    z-index: 9;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 5px 20px;
+    text-align: center;
+}
 
-        .datos .estadogrph span.confirmed {
-            border: 1px solid #AED4C2;
-            color: #AED4C2;
-            top: -8vw;
-        }
+.texto3 a {
+    color: #6b6b6b;
+}
 
-        .datos .estadogrph span.deaths {
-            border: 1px solid #101010;
-            color: #101010;
-            bottom: -8vw;
-        }
-        .nextarr {
-            position: fixed;
-            bottom: 5.5vh;        
-            right: 0;
-            color: #b72a14;
-            padding: 0;
-            z-index: 9999;
-            cursor: pointer;
-            width: 10vw;
-            line-height: 40px;
-            height: 40px;
-            text-align: center;
-        }
-        .prevarr {
-            position: fixed;
-            bottom: 5.5vh;        
-            left: 0;
-            color: #b72a14;
-            padding: 0;
-            z-index: 9999;
-            cursor: pointer;
-            width: 10vw;
-            line-height: 40px;
-            height: 40px;
-            text-align: center;
-        }
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            cursor: grab;
-            width: 100%;
-            height: 100vh;
-            z-index: 1;
-        }
+.datos {
+    overflow: hidden;
+    z-index: 9;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    top: 50%;
+    height: auto;
+    pointer-events: none;
+    transform: translateY(-50%);
+    left: 0;
+}
 
-        .wrappi {
-            overflow: hidden;
-            width: 100%;
-            height: 100vh;
-            display: block;
-            position: relative;
-        }
+.datos .estadogrph {
+    font-family: monospace;
+    padding: 0;
+    font-size: 0;
+    margin: 0vw;
+    width: 3.12vw;
+    flex: none;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    background: #303532;
+    opacity: 0.05;
+    transition: ease all 100ms;
+}
+
+.datos .estadogrph:hover {
+    background: #B72A14;
+    opacity: 1;
+}
+
+.datos .estadogrph span {
+    opacity: 0;
+    position: absolute;
+    width: 5vw;
+    font-size: 1.2vw;
+    font-weight: bold;
+    line-height: 5vw;
+    height: 5vw;
+    left: -2.5vw;
+    border-radius: 50%;
+}
+
+.datos .estadogrph:hover span {
+    opacity: 1;
+}
+
+.datos .estadogrph span.confirmed {
+    border: 1px solid #AED4C2;
+    color: #AED4C2;
+    top: -8vw;
+}
+
+.datos .estadogrph span.deaths {
+    border: 1px solid #101010;
+    color: #101010;
+    bottom: -8vw;
+}
+
+.nextarr {
+    position: fixed;
+    bottom: 5.5vh;
+    right: 0;
+    color: #b72a14;
+    padding: 0;
+    z-index: 9999;
+    cursor: pointer;
+    width: 10vw;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+}
+
+.prevarr {
+    position: fixed;
+    bottom: 5.5vh;
+    left: 0;
+    color: #b72a14;
+    padding: 0;
+    z-index: 9999;
+    cursor: pointer;
+    width: 10vw;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: grab;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+}
+
+.wrappi {
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+    display: block;
+    position: relative;
+}
