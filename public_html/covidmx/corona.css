@@ -19,7 +19,37 @@
             font-family: 'Rubik Mono One', sans-serif;
         }
 
-
+#loading{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #101010;
+    z-index: 999999999999;
+}
+#loading b{
+    position: absolute;
+    background: #da1717;
+    width: 5vw;
+    height: 5vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(1);
+    display: block;
+    animation: latir ease forwards 1s infinite;
+}
+@keyframes latir{
+    0%{
+        transform: translate(-50%,-50%) scale(1);
+    }
+    50%{
+        transform: translate(-50%,-50%) scale(1.1);
+    }
+    100%{
+        transform: translate(-50%,-50%) scale(1);
+    }
+}
         select#estado {
             margin: 1vw 0;
             font-weight: 100;
@@ -27,7 +57,7 @@
             color: #ffffff;
             text-transform: uppercase;
             background: hsla(0, 0%, 5%, 0.95);
-            border: 1px solid #B72A14;
+            border: 1px solid #da1717;
             box-shadow: 0px 4px 10px #101010;
             width: 80vw;
             max-width: 500px;
@@ -78,7 +108,7 @@
         }
 
         .texto1 #muertes {
-            color: #B72A14;
+            color: #da1717;
         }
 
         .texto2 {
@@ -141,7 +171,7 @@
         }
 
         .datos .estadogrph:hover {
-            background: #B72A14;
+            background: #da1717;
             opacity: 1;
         }
 
@@ -176,7 +206,7 @@
             position: fixed;
             bottom: 5.5vh;        
             right: 0;
-            color: #b72a14;
+            color: #da1717;
             padding: 0;
             z-index: 9999;
             cursor: pointer;
@@ -189,7 +219,7 @@
             position: fixed;
             bottom: 5.5vh;        
             left: 0;
-            color: #b72a14;
+            color: #da1717;
             padding: 0;
             z-index: 9999;
             cursor: pointer;

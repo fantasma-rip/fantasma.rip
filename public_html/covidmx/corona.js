@@ -3,6 +3,8 @@
             $(document).ready(function () {
                 $(window).on('load', function () {
 
+                    $('#loading').fadeOut('slow');
+
                     var datos = 'https://raw.githubusercontent.com/emirelesg/covid19-mx/master/public/api/stats.json';
 
                     var nombre = '';
