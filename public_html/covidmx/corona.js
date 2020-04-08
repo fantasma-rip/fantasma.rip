@@ -37,6 +37,25 @@
 
                     }
 
+                    function sacargrafica() {
+
+                        $.getJSON(datos, function (data) {
+                            $.each(data.states, function (index, value) {
+                            nombre = value.name;
+                            sospechosos = value.suspected;
+                            confirmados = value.confirmed;
+                            muertes = value.deaths;
+                            var rconf = confirmados * 0.005;
+                            var rdead = (muertes / confirmados) * 100;
+                            rdead = rdead.toFixed(2);
+                            zinde = rconf.toFixed(0);
+                            $('.datos').append("<div class='cadadia' style='height: " + rconf + "vw;'><span class='confirmed'>" + confirmados + "</span><span class='deaths'>" + muertes + "</span></div>");
+                            });
+                        });
+
+                    }
+                    sacargrafica();
+
                     function imprimir(nombre, sospechosos, confirmados, muertes) {
 
                         $('canvas').remove();
@@ -109,18 +128,6 @@
 
 
 
-
-                    var rconf = confirmados * 0.005;
-                    var rdead = (muertes / confirmados) * 100;
-                    rdead = rdead.toFixed(2);
-                    zinde = rconf
-                        .toFixed(0);
-                    $('.datos').append(
-                        "<div class='cadadia' style='height: " + rconf +
-                        "vw;'><span class='confirmed'>" +
-                        confirmados + "</span><span class='deaths'>" +
-                        muertes +
-                        "</span></div>");
 
 
                     $('#estado').on('change', function () {
