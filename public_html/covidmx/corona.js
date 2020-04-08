@@ -97,7 +97,7 @@
                                 });
                             }
 
-                             var geometry = new THREE.SphereGeometry(0.2, 3, 3);
+                             var geometry = new THREE.SphereGeometry(0.075, 3, 3);
                              var figura = new THREE.Mesh(geometry, material);
 
                              figura.position.x = ( Math.random() - 0.5) * R*2 * Math.random();
