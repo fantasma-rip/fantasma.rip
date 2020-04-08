@@ -80,7 +80,7 @@
                         light.position.set(0.2, 1, 1).normalize();
                         scene.add(light);
 
-
+                        var R=2000;
                         for (let i = 0; i < sospechosos; i++) {
                             if (i < muertes) {
                                 var material = new THREE.MeshToonMaterial({
@@ -102,12 +102,21 @@
                              var geometry = new THREE.SphereGeometry(0.2, 3, 3);
                              var figura = new THREE.Mesh(geometry, material);
 
-
-
-                             figura.position.x = Math.floor(Math.random() * 31) - 15;
-                             figura.position.y = Math.floor(Math.random() * 21) - 10;
-                             figura.position.z = Math.floor(Math.random() * 21) - 10;
-                            scene.add(figura);
+                             figura.position.x = ( Math.random() - 0.5) * R*2 * Math.random();
+                             figura.position.y = ( Math.random() - 0.5) * R*2 * Math.random() ;
+                             figura.position.z = ( Math.random() - 0.5) * R*2 * Math.random() ;
+                         
+                             figura.rotation.x = Math.random();
+                             figura.rotation.y = Math.random();
+                             figura.rotation.z = Math.random();
+                         
+                             var distance_squared = figura.position.x*figura.position.x + figura.position.y*figura.position.y + figura.position.z*figura.position.z;
+                         
+                             if(distance_squared <= R*R) {
+                                 scene.add(figura);
+                                 objects.push(figura);
+                                 ++i;
+                             }
                         }
 
                         camera.position.z = 32;
