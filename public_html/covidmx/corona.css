@@ -99,9 +99,9 @@
             width: 100%;
             position: fixed;
             display: flex;
-            align-items: normal;
+            align-items: baseline;
             padding: 0;
-            top: 0;
+            bottom: 0;
         }
 
         .datos .estadogrph {
@@ -114,7 +114,7 @@
             position: relative;
             text-align: center;
             cursor: pointer;
-            border: 1px solid #E4E2DE;
+            border: 1px solid #6b6b6b;
             transition: ease all 100ms;
         }
 
@@ -150,7 +150,20 @@
             color: #151515;
             bottom: -8vw;
         }
-
+        .nextarr {
+            position: fixed;
+            top: 45%;
+            right: 0;
+            background: #AED4C2;
+            padding: 5px;
+        }
+        .prevarr {
+            position: fixed;
+            top: 45%;
+            left: 0;
+            background: #AED4C2;
+            padding: 5px;
+        }
         canvas {
             position: absolute;
             top: 0;
