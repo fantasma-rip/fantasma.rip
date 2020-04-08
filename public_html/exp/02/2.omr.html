@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>experimento 2.0 - jun</title>
+	</head>
+	<body>
+		<style>
+			body{
+				margin: 0;
+				padding: 0;
+				width: 100%;
+			}
+			canvas{
+				width: 100%;
+				height: 100%;
+				cursor: grab;
+			}
+		</style>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js" integrity="sha256-gSh8eotzb/CVvCREGPUNgIWuDnTYnZvVOQnRrP1eDjI=" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/three@0.85.0/examples/js/controls/OrbitControls.js"></script>
+		<script>
+		// setup variables
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+		var renderer = new THREE.WebGLRenderer();
+
+		// scene setup
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		document.body.appendChild(renderer.domElement);
+		controls = new THREE.OrbitControls(camera, renderer.domElement);
+		// window resizer
+		window.addEventListener('resize',function(){
+			var width = window.innerWidth;
+			var height = window.innerHeight;
+			renderer.setSize(width,height);
+			camera.aspect= width / height;
+			camera.updateProjectionMatrix();
+		});
+		// camera
+		camera.position.z = 0.5;
+		camera.position.y = 0;
+		// sphere
+		var geometry = new THREE.SphereGeometry(0.5, 32, 32);
+		var material1 = new THREE.MeshBasicMaterial({color: 0x0061ff, wireframe: true});
+		var sphere = new THREE.Mesh(geometry, material1);
+		scene.add(sphere);
+		// sectors
+		var sectors = new Array();
+		var grid = 64;
+		for (var i = 0; i < grid; i++) { sectors[i] = new Array() }
+		// boids
+		var coneGeometry = new THREE.SphereGeometry(0.008, 5, 5);
+		var coneMaterial = new THREE.MeshBasicMaterial({color: 0xc1c1c1, wireframe: false});
+		var cone = new THREE.Mesh(coneGeometry, coneMaterial);
+		class Boid {
+			constructor(name, mesh, x, y, z) {
+				this.boidName = name;
+				this.mesh = mesh;
+				this.mesh.translateX(x);
+				this.mesh.translateY(y);
+				this.mesh.translateZ(z);
+				this.sector = 0;
+				this.pastPos = THREE.Vector3(x, y, z);
+				this.direction = THREE.Vector3();
+				this.pastPosX = x;
+				this.pastPosY = y;
+				this.pastPosZ = z;
+				this.directionX = x;
+				this.directionY = y;
+				this.directionZ = z;
+			}
+		}
+		// auxiliary functions
+		var rand = function() { return (Math.random() - 0.5) * 0.6 }
+		var pos2coord = function(pos) { return {"x" : Math.floor((pos.x + 0.5) * 8), "z" : Math.floor((pos.z + 0.5) * 8)} }
+		var pos2sector = function(pos) { var coord = pos2coord(pos); return coord["x"] + (coord["z"] * 8); }
+		var deleteKey = function(arr, key) { var newArray = new Array(); for (var i = 0; i < arr.length; i++) { if (key != arr[i]) { newArray.push(arr[i]) } }; return newArray; }
+		var neighboringSectors = function(boidCoords, boidSector) {
+			if (1 < boidCoords["x"] < 7 && 1 < boidCoords["z"] < 7) {
+				var neighbors = [];
+				for (var i = boidSector - 9; i < boidSector - 6; i++) { neighbors.push(i) }
+				for (var i = boidSector - 1; i < boidSector + 2; i++) { neighbors.push(i) }
+				for (var i = boidSector + 7; i < boidSector + 10; i++) { neighbors.push(i) }
+				return neighbors;
+			} else {
+				return [];
+			}
+		}
+		// boid instancing
+		var boidDebugging = 16;
+		var boids = [];
+		var flock = 50;
+		for (var i = 0; i < flock; i++) {
+			// create boid
+			var name = "" + i;
+			boids[i] =  new Boid(name, new THREE.Mesh(coneGeometry, coneMaterial), rand(), rand(), rand());
+			var sector = pos2sector(boids[i].mesh.position);
+			boids[i].sector = sector;
+			// add to sector
+			sectors[sector].push(name);
+			scene.add(boids[i].mesh);
+		}
+		// animation logic ticks
+		var update = function(){
+			sphere.rotation.y += 0.00010;
+			// boids
+			for (var i = 0; i < flock; i++) {
+				// sector update
+				var current_sector = pos2sector(boids[i].mesh.position);
+				if (boids[i].sector != current_sector) {
+					if (i == boidDebugging) { console.log(boids[i].sector, current_sector, sectors[boids[i].sector], boids[i].boidName) }
+					sectors[boids[i].sector] = deleteKey(sectors[boids[i].sector], boids[i].boidName);      // delete from current sector
+					if (i == boidDebugging) { console.log(sectors[boids[i].sector]) }
+					sectors[current_sector].push(boids[i].boidName);   // add to new sector
+					boids[i].sector = current_sector                 // update property
+				}
+				// boid behavioral rules
+				var speed = 1;
+				var avgDir = THREE.Vector3();
+				var avgPos = THREE.Vector3();
+				var area = neighboringSectors(pos2coord(boids[i].mesh.position), boids[i].sector);
+				var neighbors = [];
+				var neighborNum = 0;
+				// boids in area sectors
+				var avgDirX = 0;
+				var avgDirY = 0;
+				var avgDirZ = 0;
+				var avgX = 0;
+				var avgY = 0;
+				var avgZ = 0;
+				for (var j = 1; j < area.length; j++){
+					for (const [ key, value ] of Object.entries(sectors[area[j]])) {
+						// THREE.Vector3 is undefined, components added separately
+						avgDirX += boids[key].directionX;
+						avgDirY += boids[key].directionY;
+						avgDirZ += boids[key].directionZ;
+
+						avgX += boids[key].mesh.position.x;
+						avgY += boids[key].mesh.position.y;
+						avgZ += boids[key].mesh.position.z;
+						neighborNum++;
+					}
+				}
+				avgX /= neighborNum;
+				avgY /= neighborNum;
+				avgZ /= neighborNum;
+				// alignment (direction)
+				boids[i].mesh.lookAt(avgDirX, avgDirY, avgDirZ);
+				// cohesion (position)
+				// avoidance (flock uniformity)
+
+				//if (i == boidDebugging) { console.log(boids[i]) }
+				//if (i == boidDebugging) { console.log(neighborNum) }
+				//if (i == boidDebugging) { console.log(sectors) }
+				boids[i].mesh.translateY(0.0002);
+				// update boid direction property
+				boids[i].directionX = boids[i].mesh.position.x - boids[i].pastPosX;
+				boids[i].directionY = boids[i].mesh.position.y - boids[i].pastPosY;
+				boids[i].directionZ = boids[i].mesh.position.z - boids[i].pastPosZ;
+				// update boid pasPos property
+				boids[i].pastPosX = boids[i].mesh.position.x;
+				boids[i].pastPosY = boids[i].mesh.position.y;
+				boids[i].pastPosZ = boids[i].mesh.position.z;
+			}
+		};
+
+		// objects to screen
+		var render = function(){
+			renderer.render(scene, camera);
+		};
+
+		// tick/render loop
+		var gameLoop = function(){
+			requestAnimationFrame(gameLoop);
+			update();
+			render();
+		}
+		gameLoop();
+		</script>
+	</body>
+</html>
+

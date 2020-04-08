@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>exp3 - ömm</title>
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #010101;
+            width: 100%;
+            overflow: hidden;
+            background-image: url('lain.gif');
+            background-size: cover;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"
+        integrity="sha256-gSh8eotzb/CVvCREGPUNgIWuDnTYnZvVOQnRrP1eDjI=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/three@0.85.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.x = -30;
+        camera.position.y = -10;
+        camera.position.z = -100;
+
+        var widthCube;
+
+        var light = new THREE.PointLight( 0xff0000, 1, 100 );
+        var light2 = new THREE.PointLight( 0x0000ff, 1, 100 );
+        var light3 = new THREE.PointLight( 0x008000, 1, 100 );
+        light.position.set( 50, 50, 10 );
+        light2.position.set( 50, 80, 10 );
+        light3.position.set( 345.65137855394397, 113.61386242507672, 112.60191609071279 );
+
+        var renderer = new THREE.WebGLRenderer({
+            alpha: true
+        });
+        renderer.setClearColor(0x010101, 0);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        window.addEventListener('resize', function () {
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        // figura
+        var geometry = new THREE.BoxBufferGeometry(20, 32, 32);
+        var material = new THREE.MeshStandardMaterial({
+
+        });
+
+        for(var i = 0; i <= 100; i++ ){
+            var mesh = new THREE.Mesh(geometry, material);
+            mesh.position.x = Math.random() * 311;
+            mesh.position.y = Math.random() * 200;
+            mesh.position.z = Math.random() * 111;
+            mesh.width = Math.random() * 600;
+            scene.add(mesh);
+
+        }
+
+        scene.add(light, light2, light3);
+
+
+
+        // lógica del programa
+        var update = function () {
+            mesh.rotation.x += 0.1;
+        }
+
+        ;
+        // dibujar escena
+        var render = function () {
+            renderer.render(scene, camera);
+        };
+
+        // correr loop
+        var GameLoop = function () {
+            requestAnimationFrame(GameLoop);
+            update();
+            render();
+
+            console.log(camera.position)
+        }
+
+        GameLoop();
+    </script>
+
+
+</body>
+
+</html>

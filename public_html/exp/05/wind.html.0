@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>experimento 5.0 - jun</title>
+	</head>
+	<body>
+		<style>
+			body{
+				margin: 0;
+				padding: 0;
+				width: 100%;
+			}
+			canvas{
+				width: 100%;
+				height: 100%;
+				cursor: grab;
+			}
+		</style>
+		<!-- <script src="https://unpkg.com/dat.gui"></script> -->
+		<script src="THREE.js"></script>
+		<script src="OrbitControls.js"></script>
+		<script src="SVGLoader.js"></script>
+		<script src="GPUComputationRenderer.js"></script>
+
+		<!-- GPGPU shaders -->
+		<script type="x-shader/x-fragment" id="computeShaderPosition">
+			uniform float time;
+			uniform float delta;
+			uniform sampler2D windTexture;
+
+			void main() {
+				vec2 uv = gl_FragCoord.xy / resolution.xy;
+				vec3 pos = texture2D(texturePosition, uv).xyz;
+				vec3 vel = (texture2D(textureVelocity, uv).xyz - vec3(0.5, 0.5, 0.0)) * 2.0;
+				vec3 wind_height = mix(vec3(-1.0), vec3(1.0), texture2D(windTexture,  abs(pos.xy)).xyz);
+
+				// Dynamics
+				pos += wind_height * delta * 0.5;
+				//pos.z = wind_height.z; // heightmap on blue channel
+				highp vec3 newPos = vec3(mod(pos.x + 1.0, 0.99996), mod(pos.y + 1.0, 1.0), 0.0); // wrap around
+				gl_FragColor = vec4(newPos, 1.0);
+			}
+		</script>
+		<script type="x-shader/x-fragment" id="computeShaderVelocity">
+			uniform float time;
+			uniform float delta;
+			uniform sampler2D windTexture;
+
+			vec2 uv_remapping(vec3 pos) {
+				return vec2(0.0);
+			}
+
+			void main() {
+				vec2 uv = gl_FragCoord.xy / resolution.xy;
+				vec3 pos = texture2D(texturePosition, uv).xyz;
+				vec3 vel = texture2D(textureVelocity, uv).xyz;
+				vec2 wind = mix(vec2(-1.0), vec2(1.0), texture2D(windTexture, abs(pos.xy)).rg);
+				//vec3 wind_height = (texture2D(windTexture, abs(pos.xy)).xyz - vec3(0.4321, 0.5, 0.0)) * 2.0;
+				//vec2 wind = wind_height.xy;
+				//float height =  wind_height.z;
+				//wind.x = wind.x;
+				//wind.y = wind.y;
+				//wind_height.z = 1.0;
+
+				// Dynamics
+				vel += vec3(wind, 0.0) * delta;
+				gl_FragColor = vec4(vel, 1.0);
+			}
+		</script>
+
+		<!-- Star shaders -->
+		<script type="x-shader/x-vertex" id="vertexStars">
+			attribute float size;
+			attribute vec3 customColor;
+
+			varying vec3 vColor;
+
+			void main() {
+				vColor = customColor;
+				vec4 mvPosition = modelViewMatrix * vec4(position.xyz, 1.0);
+				gl_PointSize = size * (420.0 / -mvPosition.z);
+				gl_Position = projectionMatrix * mvPosition;
+			}
+		</script>
+		<script type="x-shader/x-fragment" id="fragmentStars">
+			uniform vec3 color;
+			uniform sampler2D pointTexture;
+
+			varying vec3 vColor;
+
+			void main() {
+				gl_FragColor = vec4(color * vColor, texture2D( pointTexture, gl_PointCoord ).a);
+				gl_FragColor = gl_FragColor;
+			}
+		</script>
+
+		<!-- Wind shaders -->
+		<script type="x-shader/x-vertex" id="vertexWind">
+			attribute float vertexId;
+			attribute vec3 customColor;
+			attribute float size;
+
+			uniform float time;
+			uniform float delta;
+			uniform sampler2D texturePosition;
+			uniform sampler2D textureVelocity;
+			uniform sampler2D windTexture;
+
+			varying vec3 vColor;
+
+			vec3 xy2xyz(vec2 coords) {
+				// uv2xyz (rectangle to sphere)
+				float theta = -0.3112 * 3.1416 * coords.x;
+				float phi = 0.1269 * 6.2832 * coords.y;
+				float radius = 2.0;
+				float x = cos(theta) * sin(phi) * radius;
+				float y = sin(theta) * sin(phi) * radius;
+				float z = -cos(phi) * radius;
+				vec3 pos = vec3(x, z, y);
+				return pos;
+			}
+			void main() {
+				highp vec3 pos = texture2D(texturePosition, uv).xyz;
+				vec3 vel = texture2D(textureVelocity, uv).xyz;
+				vec3 wind_height = texture2D(windTexture, abs(pos.xy)).xyz;
+				vec3 wind_remapped = (texture2D(windTexture, abs(pos.xy)).xyz - vec3(0.5, 0.5, 0.0)) * 2.0;
+				//vColor = customColor;
+				//vColor = vec3(0.6, 0.8, 0.7) * 2.0;
+				vColor = (vel);
+				pos.x = pos.x * 6.42;
+				pos.y = pos.y * 3.94;
+				vec4 mvPosition = modelViewMatrix * vec4(xy2xyz(pos.xy), 1.0); // 3D
+				//vec4 mvPosition = modelViewMatrix * vec4(pos - vec3(3.21, 1.97, 0.0), 1.0); // 2D
+				gl_PointSize = size * (10.0 / -mvPosition.z);
+				gl_Position = projectionMatrix * mvPosition;
+			}
+		</script>
+		<script type="x-shader/x-fragment" id="fragmentWind">
+			uniform float time;
+			uniform float delta;
+			uniform vec3 color;
+
+			uniform sampler2D texturePosition;
+			uniform sampler2D textureVelocity;
+			uniform sampler2D pointTexture;
+
+			varying vec3 vColor;
+
+			void main() {
+				gl_FragColor = vec4(color * vColor, texture2D(pointTexture, gl_PointCoord).a);
+				gl_FragColor = gl_FragColor;
+			}
+		</script>
+		<script>
+		// scene setup
+		var width = window.innerWidth;
+		var height = window.innerHeight;
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+		var renderer = new THREE.WebGLRenderer({ antialias: true });
+		var controls = new THREE.OrbitControls(camera, renderer.domElement);
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		document.body.appendChild(renderer.domElement);
+		camera.position.z = 4.0;
+		camera.position.y = 0.0;
+
+		// window resizer
+		window.addEventListener('resize',function(){
+			width = window.innerWidth;
+			height = window.innerHeight;
+			renderer.setSize(width,height);
+			camera.aspect= width / height;
+			camera.updateProjectionMatrix();
+		});
+
+		// map values from 2D rectangle to 3D sphere
+		var uv2xyz = function(coord, radius) {
+			var theta = -0.3208 * 3.1416 * coord[0];
+			var phi = 0.1222 * 6.2832 * coord[1];
+
+			var x = Math.cos(theta) * Math.sin(phi) * radius;
+			var y = Math.sin(theta) * Math.sin(phi) * radius;
+			var z = -Math.cos(phi) * radius;
+			var vertex = new THREE.Vector3(x, y, z);
+			return vertex;
+		};
+
+		// particle variables
+		var textureSize = 128;
+		var dispersion = 2048.0;
+		// wind
+		var amountWind = textureSize * textureSize;
+		var positionsWind = new Float32Array(amountWind * 4);
+		var uvsWind = new Float32Array(amountWind * 2);
+		var colorsWind = new Float32Array(amountWind * 3);
+		var sizesWind = new Float32Array(amountWind);
+		var idsWind = new Float32Array(amountWind);
+		var vertexWind = new THREE.Vector4();
+		var uvWind = new THREE.Vector2();
+		var colorWind = new THREE.Color(0x008866);
+		// starfield
+		var amountStars = textureSize;
+		var positionsStars = new Float32Array(amountStars * 3);
+		var colorsStars = new Float32Array(amountStars * 3);
+		var sizesStars = new Float32Array(amountStars);
+		var vertexStars = new THREE.Vector3();
+		var colorStars = new THREE.Color(0x668866);
+
+		// initialize wind geometry
+		for (var i = 0; i < amountWind; i++) {
+			vertexWind.x = (Math.random());// * 6896.0;
+			vertexWind.y = (Math.random());// * -4296.0;
+			//vertexWind.x = (Math.random() * 2 - 1) * dispersion / 200.0;
+			//vertexWind.y = (Math.random() * 2 - 1) * dispersion / 200.0;
+			vertexWind.z = 0;
+			vertexWind.w = 1;
+
+			vertexWind.toArray(positionsWind, i * 4);
+			colorWind.toArray(colorsWind, i * 3);
+			sizesWind[i] = 1;
+			idsWind[i] = i;
+		}
+		var p = 0; // calculate compute shader textures uvs
+		for (var j = 0; j < textureSize; j++) {
+			for (var i = 0; i < textureSize; i++) {
+				uvsWind[p++] = i / (textureSize - 1);
+				uvsWind[p++] = j / (textureSize - 1);
+			}
+		}
+		// vertex attributes init
+		var geometryWind = new THREE.BufferGeometry();
+		geometryWind.setAttribute('vertexId', new THREE.BufferAttribute(idsWind, 1));
+		geometryWind.setAttribute('position', new THREE.BufferAttribute(positionsWind, 4));
+		geometryWind.setAttribute('uv', new THREE.BufferAttribute(uvsWind, 2));
+		geometryWind.setAttribute('customColor', new THREE.BufferAttribute(colorsWind, 3));
+		geometryWind.setAttribute('size', new THREE.BufferAttribute(sizesWind, 1));
+
+		// initialize starfield geometry
+		for (var i = 0; i < amountStars; i++) {
+			vertexStars.x = (Math.random() * 2 - 1) * dispersion;
+			vertexStars.y = (Math.random() * 2 - 1) * dispersion;
+
+			vertexStars = uv2xyz([vertexStars.x, vertexStars.y], 100.0);
+
+			vertexStars.toArray(positionsStars, i * 3);
+			colorStars.toArray(colorsStars, i * 3);
+			sizesStars[i] = Math.random() * 1.4;
+		}
+		// vertex attributes init
+		var geometryStars = new THREE.BufferGeometry();
+		geometryStars.setAttribute('position', new THREE.BufferAttribute(positionsStars, 3));
+		geometryStars.setAttribute('customColor', new THREE.BufferAttribute(colorsStars, 3));
+		geometryStars.setAttribute('size', new THREE.BufferAttribute(sizesStars, 1));
+
+		// shader init
+		// wind shader parameters
+		var time = 0.0;
+		var windShaderUniforms = {
+			time: {type: "f", value: 0.0},
+			delta: {type: "f", value: 0.0},
+			color: {value: new THREE.Color(0xffffff)},
+			pointTexture: {value: new THREE.TextureLoader().load("circle_alpha.png")},
+			windTexture: {value: new THREE.TextureLoader().load("windRG_heightB.png")},
+			texturePosition: {value: null},
+			textureVelocity: {value: null}
+		};
+		// wind material
+		var materialWind = new THREE.ShaderMaterial({
+			uniforms: windShaderUniforms,
+			vertexShader: document.getElementById('vertexWind').textContent,
+			fragmentShader: document.getElementById('fragmentWind').textContent,
+			blending: THREE.AdditiveBlending,
+			depthTest: false,
+			transparent: true
+		});
+		// stars shader parameters
+		var starsShaderUniforms = {
+			time: {type: "f", value: 0.0},
+			delta: {type: "f", value: 0.0},
+			color: {type: "v3", value: new THREE.Color(0xffffff)},
+			pointTexture: {value: new THREE.TextureLoader().load("circle_alpha.png")}
+		};
+		// stars material
+		var materialStars = new THREE.ShaderMaterial({
+			uniforms: starsShaderUniforms,
+			vertexShader: document.getElementById('vertexStars').textContent,
+			fragmentShader: document.getElementById('fragmentStars').textContent,
+			blending: THREE.AdditiveBlending,
+			depthTest: false,
+			transparent: true
+		});
+
+		// instance particle objects and add them to the scene
+		var wind = new THREE.Points(geometryWind, materialWind);
+		var stars = new THREE.Points(geometryStars, materialStars);
+		scene.add(wind);
+		scene.add(stars);
+
+		// earth's coastline mesh
+		var coastline = new THREE.Group();
+		// instantiate SVG loader
+		var loader = new THREE.SVGLoader();
+		var path_loops = [];
+
+		// load SVG coastline map
+		loader.load(
+			// resource URL
+			'world-ss.svg',
+			// called when the resource is loaded
+			function (data) {
+				var test = false;
+				var paths = data.paths;
+				//console.log(paths);
+				// for every path
+				for (var i = 0; i < paths.length; i ++) {
+					var path = paths[i];
+					var path_points = path.currentPath.getPoints();
+					var points = [];
+					var points2D = [];
+					// for every coordinate
+					for (var j = 0; j < path_points.length; j++) {
+						var lon_lat = [path_points[j].x / 1076.0, path_points[j].y / 1076.0]; // size adjustment before mapping to sphere
+						// push vertex into point buffer
+						points.push(uv2xyz(lon_lat, 2.0));
+						points2D.push((new THREE.Vector3(lon_lat[0] - 3.21, 0.0, lon_lat[1] - 1.97)).divideScalar(1.0));
+					}
+					// generate corresponding mesh and add to group
+					var material = new THREE.LineBasicMaterial({color: 0x00ff88});
+					var geometry = new THREE.BufferGeometry().setFromPoints(points);
+					var loop = new THREE.LineLoop(geometry, material);
+					loop.rotateX(1.57); // correct sphere orientation
+					coastline.add(loop);
+				}
+				// add group to scene
+				scene.add(coastline);
+				console.log(scene);
+			},
+			// called when loading is in progress
+			function (xhr) {
+				//console.log('File loaded.');
+			},
+			// called when loading has errors
+			function (error) {
+				console.log('An error ocurred while loading SVG file.');
+			}
+		);
+
+		// GPGPU initialization
+		var last = performance.now(); // for delta calulation
+		var gpuCompute;
+		var velocityVariable;
+		var positionVariable;
+		var positionUniforms;
+		var velocityUniforms;
+
+		// GPGPU setup
+		gpuCompute = new THREE.GPUComputationRenderer(textureSize, textureSize, renderer);
+		var dtPosition = gpuCompute.createTexture();
+		var dtVelocity = gpuCompute.createTexture();
+		fillPositionTexture(dtPosition);
+		fillVelocityTexture(dtVelocity);
+
+		positionVariable = gpuCompute.addVariable("texturePosition", document.getElementById('computeShaderPosition').textContent, dtPosition);
+		velocityVariable = gpuCompute.addVariable("textureVelocity", document.getElementById('computeShaderVelocity').textContent, dtVelocity);
+
+		gpuCompute.setVariableDependencies(positionVariable, [positionVariable, velocityVariable]);
+		gpuCompute.setVariableDependencies(velocityVariable, [positionVariable, velocityVariable]);
+		positionUniforms = positionVariable.material.uniforms;
+		velocityUniforms = velocityVariable.material.uniforms;
+
+		positionUniforms["time"] = {value: 0.0};
+		positionUniforms["delta"] = {value: 0.0};
+		positionUniforms["windTexture"] = {value: new THREE.TextureLoader().load("windRG_heightB.png")};
+		velocityUniforms["time"] = {value: 1.0};
+		velocityUniforms["delta"] = {value: 0.0};
+		velocityUniforms["windTexture"] = {value: new THREE.TextureLoader().load("windRG_heightB.png")};
+
+		velocityVariable.wrapS = THREE.RepeatWrapping;
+		velocityVariable.wrapT = THREE.RepeatWrapping;
+		positionVariable.wrapS = THREE.RepeatWrapping;
+		positionVariable.wrapT = THREE.RepeatWrapping;
+
+		var error = gpuCompute.init();
+		if (error !== null) {
+				console.error(error);
+		}
+		console.log(dtPosition);
+		console.log(dtVelocity);
+		console.log(positionVariable);
+		console.log(velocityVariable);
+
+		function fillPositionTexture(texture) {
+			var dataArray = texture.image.data;
+			//dataArray = [...positionsWind] // clone array
+			for (var k = 0, kl = dataArray.length; k < kl; k += 4) {
+				var x = positionsWind[k + 0];
+				var y = positionsWind[k + 1];
+				var z = positionsWind[k + 2];
+
+				dataArray[k + 0] = x;
+				dataArray[k + 1] = y;
+				dataArray[k + 2] = z;
+				dataArray[k + 3] = 1;
+			}
+			//console.log(dataArray);
+		}
+
+		function fillVelocityTexture(texture) {
+			var dataArray = texture.image.data;
+			for (var k = 0, kl = dataArray.length; k < kl; k += 4) {
+				var x = 0.5;
+				var y = 0.5;
+				var z = 0.5;
+
+				dataArray[k + 0] = x;
+				dataArray[k + 1] = y;
+				dataArray[k + 2] = z;
+				dataArray[k + 3] = 1;
+			}
+		}
+
+
+		// animation logic ticks
+		var update = function() {
+		}; // using shaders instead!
+
+		// objects to screen
+		var render = function() {
+			// console.log(dtPosition);
+			// time += 0.01;
+			// windShaderUniforms.time.value = time;
+			// starsShaderUniforms.time.value = time;
+			// renderer.render(scene, camera);
+
+			var now = performance.now();
+			var delta = (now - last) / 1000; // variable delta to support different hz
+			if (delta > 1) delta = 1; // safety cap on large deltas
+			last = now;
+
+			positionUniforms["time"].value = now;
+			positionUniforms["delta"].value = delta;
+			velocityUniforms["time"].value = now;
+			velocityUniforms["delta"].value = delta;
+
+			windShaderUniforms["time"].value = now;
+			windShaderUniforms["delta"].value = delta;
+			starsShaderUniforms["time"].value = now;
+			starsShaderUniforms["delta"].value = delta;
+
+			gpuCompute.compute();
+
+			windShaderUniforms["texturePosition"].value = gpuCompute.getCurrentRenderTarget(positionVariable).texture;
+			windShaderUniforms["textureVelocity"].value = gpuCompute.getCurrentRenderTarget(velocityVariable).texture;
+
+			renderer.render(scene, camera);
+			//console.log(windShaderUniforms);
+		};
+
+		// animation tick/render loop
+		var loop = function() {
+			requestAnimationFrame(loop);
+			update();
+			render();
+		};
+		loop();
+		</script>
+	</body>
+</html>
+ 

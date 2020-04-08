@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>experimento 5.0 - jun</title>
+	</head>
+	<body>
+		<style>
+			body{
+				margin: 0;
+				padding: 0;
+				width: 100%;
+			}
+			canvas{
+				width: 100%;
+				height: 100%;
+				cursor: grab;
+			}
+		</style>
+		<!-- <script src="https://unpkg.com/dat.gui"></script> -->
+		<script src="https://unpkg.com/three"></script>
+		<script src="https://unpkg.com/three/examples/js/controls/OrbitControls.js"></script>
+		<script src="https://unpkg.com/three/examples/js/loaders/SVGLoader.js"></script>
+
+		<!-- <script src="https://unpkg.com/three@0.112.0/examples/js/controls/DeviceOrientationControls.js"></script> -->
+		<script type="x-shader/x-vertex" id="vertexStars">
+			attribute float size;
+			attribute vec3 customColor;
+
+			varying vec3 vColor;
+
+			void main() {
+				vColor = customColor;
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+				gl_PointSize = size * ( 420.0 / -mvPosition.z );
+				gl_Position = projectionMatrix * mvPosition;
+			}
+		</script>
+		<script type="x-shader/x-fragment" id="fragmentStars">
+			uniform vec3 color;
+			uniform sampler2D pointTexture;
+
+			varying vec3 vColor;
+
+			void main() {
+				gl_FragColor = vec4(color * vColor, texture2D( pointTexture, gl_PointCoord ).a);
+				gl_FragColor = gl_FragColor;
+			}
+		</script>
+		<script type="x-shader/x-vertex" id="vertexWind">
+			attribute float vertexId;
+			attribute vec3 customColor;
+			attribute float size;
+
+			uniform float time;
+			uniform sampler2D windTexture;
+
+			varying vec3 vColor;
+
+			void main() {
+				vColor = customColor;
+				// uv2xyz (rectangle to sphere)
+				float theta = -0.3208 * 3.1416 * position.x;
+				float phi = 0.12 * 6.2832 * position.y;
+				float radius = 10.0;
+				float x = cos(theta) * sin(phi) * radius * sin(time);
+				float y = sin(theta) * sin(phi) * radius * sin(time);
+				float z = -cos(phi) * radius * sin(time);
+				vec3 pos = vec3(x, y, z);
+
+				vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+				gl_PointSize = size * (16.0 / -mvPosition.z);
+				gl_Position = projectionMatrix * mvPosition;
+			}
+		</script>
+		<script type="x-shader/x-fragment" id="fragmentWind">
+			uniform vec3 color;
+			uniform sampler2D pointTexture;
+
+			varying vec3 vColor;
+
+			void main() {
+				gl_FragColor = vec4(color * vColor, texture2D(pointTexture, gl_PointCoord ).a);
+				gl_FragColor = gl_FragColor;
+			}
+		</script>
+		<script>
+		// scene setup
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+		var renderer = new THREE.WebGLRenderer({ antialias: true });
+		var controls = new THREE.OrbitControls(camera, renderer.domElement);
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		document.body.appendChild(renderer.domElement);
+		camera.position.z = 24.0;
+		camera.position.y = 0.0;
+
+		// window resizer
+		window.addEventListener('resize',function(){
+			var width = window.innerWidth;
+			var height = window.innerHeight;
+			renderer.setSize(width,height);
+			camera.aspect= width / height;
+			camera.updateProjectionMatrix();
+		});
+
+		// map values from 2D rectangle to 3D sphere
+		var uv2xyz = function(coord, radius) {
+			var reduce = 1076;
+			var theta = -0.3208 * 3.1416 * coord[0] / reduce;
+			var phi = 0.1222 * 6.2832 * coord[1] / reduce;
+
+			var x = Math.cos(theta) * Math.sin(phi) * radius;
+			var y = Math.sin(theta) * Math.sin(phi) * radius;
+			var z = -Math.cos(phi) * radius;
+			var vertex = new THREE.Vector3(x, y, z);
+			return vertex;
+		};
+
+		// particle variables
+		var dispersion = 2048.0;
+		// wind
+		var amountWind = 65535;
+		var positionsWind = new Float32Array(amountWind * 3);
+		var colorsWind = new Float32Array(amountWind * 3);
+		var sizesWind = new Float32Array(amountWind);
+		var idsWind = new Float32Array(amountWind);
+		var vertexWind = new THREE.Vector3();
+		var colorWind = new THREE.Color(0x008866);
+		// starfield
+		var amountStars = 512;
+		var positionsStars = new Float32Array(amountStars * 3);
+		var colorsStars = new Float32Array(amountStars * 3);
+		var sizesStars = new Float32Array(amountStars);
+		var vertexStars = new THREE.Vector3();
+		var colorStars = new THREE.Color(0x668866);
+
+
+		// initialize wind geometry
+		for (var i = 0; i < amountWind; i ++) {
+			vertexWind.x = (Math.random() * 2 - 1) * dispersion/200;
+			vertexWind.y = (Math.random() * 2 - 1) * dispersion/200;
+			vertexWind.z = 0;
+
+			vertexWind.toArray( positionsWind, i * 3 );
+			colorWind.toArray( colorsWind, i * 3 );
+			sizesWind[i] = 1;
+			idsWind[i] = i;
+		}
+		var geometryWind = new THREE.BufferGeometry();
+		geometryWind.setAttribute('position', new THREE.BufferAttribute(positionsWind, 3));
+		geometryWind.setAttribute('customColor', new THREE.BufferAttribute(colorsWind, 3));
+		geometryWind.setAttribute('size', new THREE.BufferAttribute(sizesWind, 1));
+		geometryWind.setAttribute('vertexId', new THREE.BufferAttribute(idsWind, 1));
+
+		// initialize starfield geometry
+		for (var i = 0; i < amountStars; i ++) {
+			vertexStars.x = (Math.random() * 2 - 1) * dispersion;
+			vertexStars.y = (Math.random() * 2 - 1) * dispersion;
+
+			vertexStars = uv2xyz([vertexStars.x, vertexStars.y], 100.0);
+
+			vertexStars.toArray(positionsStars, i * 3);
+			colorStars.toArray(colorsStars, i * 3);
+			sizesStars[i] = 1;
+		}
+		var geometryStars = new THREE.BufferGeometry();
+		geometryStars.setAttribute('position', new THREE.BufferAttribute(positionsStars, 3));
+		geometryStars.setAttribute('customColor', new THREE.BufferAttribute(colorsStars, 3));
+		geometryStars.setAttribute('size', new THREE.BufferAttribute(sizesStars, 1));
+
+		// shader init
+		// wind shader parameters
+		var time = 0.0;
+		var windShaderUniforms = {
+			time: {type: "f", value: 0.0 },
+			color: {value: new THREE.Color(0xffffff)},
+			pointTexture: { value: new THREE.TextureLoader().load( "circle_alpha.png" ) }
+		};
+		// wind material
+		var materialWind = new THREE.ShaderMaterial({
+			uniforms: windShaderUniforms,
+			vertexShader: document.getElementById( 'vertexWind' ).textContent,
+			fragmentShader: document.getElementById( 'fragmentWind' ).textContent,
+			blending: THREE.AdditiveBlending,
+			depthTest: false,
+			transparent: true
+		});
+		// stars shader parameters
+		var starsShaderUniforms = {
+			time: {type: "f", value: 0.0},
+			color: {type: "v3", value: new THREE.Color(0xffffff)},
+			pointTexture: { value: new THREE.TextureLoader().load( "circle_alpha.png" ) }
+		};
+		// stars material
+		var materialStars = new THREE.ShaderMaterial({
+			uniforms: starsShaderUniforms,
+			vertexShader: document.getElementById('vertexStars').textContent,
+			fragmentShader: document.getElementById('fragmentStars').textContent,
+			blending: THREE.AdditiveBlending,
+			depthTest: false,
+			transparent: true
+		});
+
+		// instance particle objects and add them to the scene
+		var wind = new THREE.Points(geometryWind, materialWind);
+		var stars = new THREE.Points(geometryStars, materialStars);
+		scene.add(wind);
+		scene.add(stars);
+
+		// earth's coastline mesh
+		var coastline = new THREE.Group();
+		// instantiate SVG loader
+		var loader = new THREE.SVGLoader();
+		var path_loops = [];
+
+		// load SVG coastline map
+		loader.load(
+			// resource URL
+			'world-ss.svg',
+			// called when the resource is loaded
+			function (data) {
+				var test = false;
+				var paths = data.paths;
+				//console.log(paths);
+				// for every path
+				for (var i = 0; i < paths.length; i ++) {
+					var path = paths[i];
+					var path_points = path.currentPath.getPoints();
+					var points = [];
+					var points2D = [];
+					// for every coordinate
+					for (var j = 0; j < path_points.length; j++) {
+						var lon_lat = [path_points[j].x, path_points[j].y];
+						// push vertex into point buffer
+						points.push(uv2xyz(lon_lat, 10.0));
+						points2D.push((new THREE.Vector3(lon_lat[0], 0.0, lon_lat[1])).divideScalar(1.0));
+					}
+					// generate corresponding mesh and add to group
+					var material = new THREE.LineBasicMaterial({ color: 0x00ff88 });
+					var geometry = new THREE.BufferGeometry().setFromPoints(points);
+					var loop = new THREE.LineLoop(geometry, material);
+					loop.rotateX(1.57); // correct sphere orientation
+					coastline.add(loop);
+				}
+				// add group to scene
+				scene.add(coastline);
+				console.log(scene);
+			},
+			// called when loading is in progresses
+			function (xhr) {
+				//console.log( 'File loaded.' );
+			},
+			// called when loading has errors
+			function (error) {
+				console.log('An error ocurred while loading SVG file.');
+			}
+		);
+
+		// animation logic ticks
+		var update = function() {
+		}; // using shaders instead!
+
+		// objects to screen
+		var render = function() {
+			time += 0.01;
+			windShaderUniforms.time.value = time;
+			starsShaderUniforms.time.value = time;
+			renderer.render(scene, camera);
+		};
+
+		// animation tick/render loop
+		var loop = function() {
+			requestAnimationFrame(loop);
+			update();
+			render();
+		};
+		loop();
+		</script>
+	</body>
+</html>
+
