@@ -81,7 +81,7 @@
                         scene.add(light);
 
                         var R=2000;
-                        for (let i = 0; i < sospechosos; i++) {
+                        for (let i = 0; i < sospechosos;) {
                             if (i < muertes) {
                                 var material = new THREE.MeshToonMaterial({
                                     color: 0xB72A14
@@ -114,7 +114,6 @@
                          
                              if(distance_squared <= R*R) {
                                  scene.add(figura);
-                                 objects.push(figura);
                                  ++i;
                              }
                         }
