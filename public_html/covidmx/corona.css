@@ -27,6 +27,16 @@
     height: 100%;
     background: #101010;
     z-index: 999999999999;
+    animation: salir linear forwards 3s 1;
+}
+@keyframes salir{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        pointer-events: none;
+    }
 }
 #loading b{
     position: absolute;
