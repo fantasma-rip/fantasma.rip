@@ -67,7 +67,9 @@
             margin: 0;
         }
 
-        .texto1 b span {}
+        .texto1 b span {
+            
+        }
 
         .texto1 #sospechosos {
             color: #6b6b6b;
