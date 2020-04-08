@@ -131,9 +131,17 @@
 
                     $('.nextarr').click(function() {
                         $('#estado option:selected').next().attr('selected', 'selected');
+                        $('.datos').html('');
+                        var clave = $('#estado').val();
+                        conseguirdatos(clave);
+                        sacargrafica();
                     });
                     $('.prevarr').click(function() {
                         $('#estado option:selected').prev().attr('selected', 'selected');
+                        $('.datos').html('');
+                        var clave = $('#estado').val();
+                        conseguirdatos(clave);
+                        sacargrafica();
                     });
 
                     $('#estado').on('change', function () {
