@@ -59,12 +59,7 @@
     left: 50%;
     transform: translate(-50%,-50%) scale(1);
     display: block;
-<<<<<<< 4c873139bafde689aac0fbb1ef0646ec4ca73617
     animation: latir linear forwards 1s infinite;
-=======
-    -webkit-animation: latir linear forwards 500ms infinite;
-    animation: latir linear forwards 500ms infinite;
->>>>>>> viewport
 }
 @-webkit-keyframes latir{
     0%{
