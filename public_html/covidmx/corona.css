@@ -21,6 +21,7 @@
 
 
         select#estado {
+            display: block;
             margin: 1vw 0;
             font-weight: 100;
             font-size: 14px;
