@@ -103,7 +103,7 @@
                                 });
                             } else {
                                 var material = new THREE.MeshToonMaterial({
-                                    color: 0x6b6b6b
+                                    color: 0x454545
                                 });
                             }
                             if ($(window).width() < 960) {
