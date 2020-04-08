@@ -95,7 +95,19 @@
         .texto2 a {
             color: #6b6b6b;
         }
-
+        .texto3{
+            margin: 1vw;
+            font-size: 10px;
+            color: #888;
+            position: fixed;
+            left: 0;
+            right: 0;
+            width: 100%;
+            text-align: center;
+        }
+        .texto2 a {
+            color: #6b6b6b;
+        }
         .datos {
             overflow: hidden;
             z-index: 9;
