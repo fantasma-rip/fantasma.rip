@@ -23,20 +23,22 @@
         select#estado {
             margin: 1vw 0;
             font-weight: 100;
-            font-size: 3vw;
+            font-size: 15px;
             color: #ffffff;
             text-transform: uppercase;
             background: hsla(0, 0%, 5%, 0.95);
             border: 1px solid #B72A14;
             box-shadow: 0px 4px 10px #101010;
             width: 80vw;
+            max-width: 500px;
             cursor: pointer;
             position: fixed;
             letter-spacing: 1px;
             bottom: 8vh;
             z-index: 999999;
-            left: 10vw;
-            padding: 4vw;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 15px;
             border-radius: 5px;
         }
 
@@ -50,13 +52,14 @@
             margin: 0;
             background: hsla(0, 0%, 5%, 0.95);
             color: #f0f0f0;
-            padding: 2vw 4vw;
-            font-size: 4vw;
+            padding: 2vh 4vw;
+            font-size: 18px;
             border-radius: 5px;
             position: absolute;
-            top: 10vw;
+            top: 8vh;
             left: 10vw;
             z-index: 10;
+            text-align: center;
             width: 80vw;
         }
 
@@ -80,7 +83,7 @@
 
         .texto2 {
             margin: 1vw;
-            font-size: 2vw;
+            font-size: 12px;
             color: #888;
             position: fixed;
             bottom: 0;
@@ -101,8 +104,11 @@
             display: flex;
             align-items: center;
             padding: 0;
-            bottom: 25%;
-            height: 50%;
+            top: 50%;
+            height: auto;
+            pointer-events: none;
+            transform: translateY(-50%);
+            left: 0;
         }
 
         .datos .estadogrph {
@@ -154,26 +160,28 @@
         }
         .nextarr {
             position: fixed;
-            bottom: 9vh;
+            bottom: 10vh;
             right: 0;
             color: #b72a14;
-            padding: 5px;
+            padding: 0;
             z-index: 9999;
             cursor: pointer;
             width: 10vw;
-            height: 10vw;
+            line-height: 40px;
+            height: 40px;
             text-align: center;
         }
         .prevarr {
             position: fixed;
-            bottom: 9vh;
+            bottom: 10vh;
             left: 0;
             color: #b72a14;
-            padding: 5px;
+            padding: 0;
             z-index: 9999;
             cursor: pointer;
             width: 10vw;
-            height: 10vw;
+            line-height: 40px;
+            height: 40px;
             text-align: center;
         }
         canvas {

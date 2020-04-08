@@ -109,7 +109,7 @@
                         camera.position.z = 32;
 
                         var update = function () {
-                            camera.position.z -= 0.005;
+                            camera.position.z -= 0.001;
                         };
                         var render = function () {
                             renderer.render(scene, camera);
