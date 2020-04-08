@@ -154,17 +154,23 @@
         }
         .nextarr {
             position: fixed;
-            top: 45%;
+            bottom: 9vh;
             right: 0;
-            background: #AED4C2;
+            color: #b72a14;
             padding: 5px;
+            z-index: 9999;
+            width: 10vw;
+            height: 10vw;
         }
         .prevarr {
             position: fixed;
-            top: 45%;
+            bottom: 9vh;
             left: 0;
-            background: #AED4C2;
+            color: #b72a14;
             padding: 5px;
+            z-index: 9999;
+            width: 10vw;
+            height: 10vw;
         }
         canvas {
             position: absolute;
