@@ -96,19 +96,20 @@
                                 });
                             }
                             if ($(window).width() < 960) {
-                                var geometry = new THREE.SphereGeometry(0.2, 3, 3);
-                                var figura = new THREE.Mesh(geometry, material);
-                                figura.position.x = Math.floor(Math.random() * 21) - 10;
-                                figura.position.y = Math.floor(Math.random() * 31) - 15;
-                                figura.position.z = Math.floor(Math.random() * 21) - 10;
+                            } else {
                              }
-                             else {
-                                var geometry = new THREE.SphereGeometry(0.2, 3, 3);
-                                var figura = new THREE.Mesh(geometry, material);
-                                figura.position.x = Math.floor(Math.random() * 31) - 15;
-                                figura.position.y = Math.floor(Math.random() * 21) - 10;
-                                figura.position.z = Math.floor(Math.random() * 21) - 10;
-                             }
+
+                             var geometry = new THREE.SphereGeometry(0.2, 3, 3);
+                             var figura = new THREE.Mesh(geometry, material);
+
+
+                             var sphPos = new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5 ).normalize().multiplyScalar( 4250 + Math.random() * 250 );
+                             figura.position.copy(sphPos);
+/*
+                             figura.position.x = Math.floor(Math.random() * 31) - 15;
+                             figura.position.y = Math.floor(Math.random() * 21) - 10;
+                             figura.position.z = Math.floor(Math.random() * 21) - 10;
+                             */
                             scene.add(figura);
                         }
 
