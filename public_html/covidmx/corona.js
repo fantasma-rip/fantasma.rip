@@ -38,7 +38,7 @@
                     }
 
                     function sacargrafica() {
-
+                        $('.datos').html('');
                         $.getJSON(datos, function (data) {
                             $.each(data.states, function (index, value) {
                             nombre = value.name;
@@ -134,6 +134,7 @@
                         $('.datos').html('');
                         var clave = $(this).val();
                         conseguirdatos(clave);
+                        sacargrafica();
                     });
 
 
