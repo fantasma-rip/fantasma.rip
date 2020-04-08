@@ -9,6 +9,8 @@
             margin: 0;
             padding: 0;
             width: 100%;
+            overflow: hidden;
+            height: 100vh;
             font-family: 'Inria Sans', sans-serif;
             background: #101010;
         }
@@ -27,26 +29,6 @@
     height: 100%;
     background: #101010;
     z-index: 999999999999;
-    -webkit-animation: salir linear forwards 1s 1 1s;
-    animation: salir linear forwards 1s 1 1s;
-}
-@-webkit-keyframes salir{
-    0%{
-        opacity: 1;
-    }
-    100%{
-        opacity: 0;
-        pointer-events: none;
-    }
-}
-@keyframes salir{
-    0%{
-        opacity: 1;
-    }
-    100%{
-        opacity: 0;
-        pointer-events: none;
-    }
 }
 #loading b{
     position: absolute;
