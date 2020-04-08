@@ -25,7 +25,7 @@
                                     $('#sospechosos span').html(sospechosos);
                                     $('#infectados span').html(confirmados);
                                     $('#muertes span').html(muertes);
-                                    $('#aqui span').html(nombre);
+                                    $('#aqui').html(nombre);
                                     imprimir(nombre, sospechosos, confirmados,
                                         muertes);
                                 }
