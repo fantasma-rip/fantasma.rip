@@ -80,7 +80,7 @@
                         light.position.set(0.2, 1, 1).normalize();
                         scene.add(light);
 
-                        var R=2000;
+                        var R=20;
                         for (let i = 0; i < sospechosos;) {
                             if (i < muertes) {
                                 var material = new THREE.MeshToonMaterial({
