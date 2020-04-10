@@ -28,11 +28,7 @@ input#estado {
     margin: 1vw 0;
     font-weight: 100;
     font-size: 14px;
-    color: #ffffff;
     text-transform: uppercase;
-    background: hsla(0, 0%, 5%, 0.95);
-    border: 1px solid #B72A14;
-    box-shadow: 0px 4px 10px #101010;
     width: 80vw;
     max-width: 500px;
     cursor: pointer;
