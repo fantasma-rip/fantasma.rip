@@ -19,7 +19,11 @@ h3 {
 }
 
 
-select#estado {
+.prevarr,
+.nextarr{
+    display: none;
+}
+input#estado {
     display: block;
     margin: 1vw 0;
     font-weight: 100;
@@ -40,11 +44,6 @@ select#estado {
     transform: translateX(-50%);
     padding: 10px 15px;
     border-radius: 5px;
-}
-
-select#estado option {
-    color: #101010;
-    background: #f0f0f0;
 }
 
 

@@ -1,34 +1,45 @@
 (function ($) {
     $(window).on('load', function () {
 
+
+        let scene;
+        let camera;
+        let renderer;
+
+        setup();
+        draw();
+
+        function setup() {
+            setupScene();
+            setupCamera();
+            setupLights();
+            setupRenderer();
+            setupEventListeners();
+        }
+
         var datos = 'https://raw.githubusercontent.com/emirelesg/covid19-mx/master/public/api/stats.json';
 
         var nombre = '';
-        var sospechosos = '';
         var confirmados = '';
         var muertes = '';
-        var clave = 'CDMX';
+        var clave = '2020-04-09';
 
         conseguirdatos(clave);
 
         var tenerdatos = '';
         var error = '';
-
-
         function conseguirdatos(clave) {
 
             tenerdatos = $.getJSON(datos, function (data) {
-                $.each(data.statesAsArray, function (index, value) {
-                    if (value.key == clave) {
+                $.each(data.timeseries, function (index, value) {
+                    if (value.date == clave) {
                         nombre = value.name;
-                        sospechosos = value.suspected;
                         confirmados = value.confirmed;
                         muertes = value.deaths;
-                        $('#sospechosos span').html(sospechosos);
                         $('#infectados span').html(confirmados);
                         $('#muertes span').html(muertes);
                         $('#aqui').html(nombre);
-                        imprimir(nombre, sospechosos, confirmados,
+                        imprimir(nombre, confirmados,
                             muertes);
                     }
                 });
@@ -42,125 +53,146 @@
             });
 
         }
-        /*
-                            function sacargrafica() {
-                                $('.datos').html('');
-                                $.getJSON(datos, function (data) {
-                                    $.each(data.timeseries, function (index, value) {
-                                    fecha = value.date;
-                                    sospechosos = value.suspected;
-                                    confirmados = value.confirmed;
-                                    muertes = value.deaths;
-                                    var rconf = confirmados * 0.05;
-                                    var rdead = (muertes / confirmados) * 100;
-                                    rdead = rdead.toFixed(2);
-                                    zinde = rconf.toFixed(0);
-                                    $('.datos').append("<div class='estadogrph' style='height: " + rconf + "vw;'><span class='confirmed'>" + confirmados + "</span><span class='deaths'>" + muertes + "</span></div>");
-                                    });
-                                });
+        function setupScene() {
+            scene = new THREE.Scene();
+        }
 
-                            }
-                            */
+        function setupCamera() {
+            let res = window.innerWidth / window.innerHeight;
+            camera = new THREE.PerspectiveCamera( 75, res, 0.1, 1000);
+            camera.position.z = 15;
+        }
 
-        function imprimir(nombre, sospechosos, confirmados, muertes) {
-
-            $('canvas').remove();
-            var scene = new THREE.Scene();
-            var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window
-                .innerHeight, 0.1, 1000);
-
-            var renderer = new THREE.WebGLRenderer({
-                alpha: true
+        function setupRenderer() {
+            renderer = new THREE.WebGLRenderer({
+                antialias: true
             });
-            renderer.setClearColor(0xE4E2DE, 0);
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            container = document.getElementById('wrappi');
-            container.appendChild(renderer.domElement);
+            renderer.setSize(
+                window.innerWidth,
+                window.innerHeight);
+            document.body.appendChild(renderer.domElement);
 
-            window.addEventListener('resize', function () {
-                var width = window.innerWidth;
-                var height = window.innerHeight;
-                renderer.setSize(width, height);
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-            });
             controls = new THREE.OrbitControls(camera, renderer.domElement);
+        }
 
-            var light = new THREE.DirectionalLight(0xE4E2DE);
-            light.position.set(0.2, 1, 1).normalize();
-            scene.add(light);
+        function setupLights() {
+            let ambientLight = new THREE.AmbientLight(0x101010);
+            scene.add(ambientLight);
+            let spotLight = new THREE.SpotLight(0xffffff);
+            spotLight.position.set( -10, -10, -10);
+            spotLight.castShadow = true;
+            scene.add(spotLight);
+            let spotLight2 = new THREE.SpotLight(0xf0f0f0);
+            spotLight2.position.set( 10, 10, 10);
+            spotLight2.castShadow = true;
+            scene.add(spotLight2);
+
+        }
+
+        function imprimir() {
+
+
+            let loader = new THREE.OBJLoader();
+            let url = "models/humano.obj"
+
+            loader.load(
+                url,
+                object => {
+
 
             var R = 20;
-            for (let i = 0; i < sospechosos;) {
+            var pop = confirmados + muertes;
+            for (let i = 0; i < pop;) {
+                var posiciones = (Math.random() - 0.5) * R * 2 * Math.random();
+                var posiciones2 = (Math.random() - 0.5) * R * 2 * Math.random();
+                var posiciones3 = (Math.random() - 0.5) * R * 2 * Math.random();
+
+                object = object.clone();
+
                 if (i < muertes) {
-                    var material = new THREE.MeshToonMaterial({
-                        color: 0xB72A14
+                    object.scale.set(0.05,0.05,0.05);
+                    var material = new THREE.MeshLambertMaterial({
+                        color: 0xFB525B
                     });
-                } else if (i < confirmados && i > muertes) {
-                    var material = new THREE.MeshToonMaterial({
-                        color: 0xAED4C2
-                    });
+                    
                 } else {
+                    object.scale.set(0.01,0.01,0.01);
                     var material = new THREE.MeshToonMaterial({
-                        color: 0x454545
+                        color: 0xC3DDDF
                     });
                 }
                 if ($(window).width() < 960) {} else {}
+                
+                object.traverse( ( obj ) => {
 
-                var geometry = new THREE.SphereGeometry(0.2, 5, 5);
-                var figura = new THREE.Mesh(geometry, material);
+                    if ( obj instanceof THREE.Mesh ) obj.material = material;
+                
+                } );
 
-                figura.position.x = (Math.random() - 0.5) * R * 2 * Math.random();
-                figura.position.y = (Math.random() - 0.5) * R * 2 * Math.random();
-                figura.position.z = (Math.random() - 0.5) * R * 2 * Math.random();
+				object.position.set(posiciones, posiciones2, posiciones3);
 
-                figura.rotation.x = Math.random();
-                figura.rotation.y = Math.random();
-                figura.rotation.z = Math.random();
+                object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
 
-                var distance_squared = figura.position.x * figura.position.x + figura.position.y * figura.position.y + figura.position.z * figura.position.z;
+                var distance_squared = object.position.x * object.position.x + object.position.y * object.position.y + object.position.z * object.position.z;
 
                 if (distance_squared <= R * R) {
-                    scene.add(figura);
+                    scene.add(object);
                     ++i;
                 }
             }
 
-            camera.position.z = 38;
+        },
+        xhr => {
+            let amount = Math.round(xhr.loaded / xhr.total * 100);
+            console.log(`${amount}% loaded`);
+        },
+        () => {
+            console.log('An error happened');
+        }
+    );
 
-            var update = function () {
-                camera.position.z -= 0.01;
-            };
-            var render = function () {
-                renderer.render(scene, camera);
-            };
 
-            var GameLoop = function () {
-                requestAnimationFrame(GameLoop);
-                update();
-                render();
-            }
 
-            GameLoop();
 
+
+        }
+
+        function draw() {
+            camera.position.z -= 0.001;
+            requestAnimationFrame(draw);
+            renderer.render(scene, camera);
+        }
+
+
+
+        function setupEventListeners() {
+            window.addEventListener("resize", onWindowResize);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
 
 
 
-
         $('.nextarr').click(function () {
-            $('#estado option:selected').next().attr('selected', 'selected');
-            var clave = $('#estado option:selected').val();
+            $('canvas').remove();
+            setup();
+            var clave = $('#estado').val();
             conseguirdatos(clave);
         });
         $('.prevarr').click(function () {
-            $('#estado option:selected').prev().attr('selected', 'selected');
-            var clave = $('#estado option:selected').val();
+            $('canvas').remove();
+            setup();
+            var clave = $('#estado').val();
             conseguirdatos(clave);
         });
-
         $('#estado').on('change', function () {
+            $('canvas').remove();
+            setup();
             var clave = $(this).val();
             conseguirdatos(clave);
         });

@@ -14,7 +14,7 @@
     <meta property="og:title" content="Coronavirus COVID-19 por estado en México :: Fantasma en la Máquina">
     <meta property="og:description"
         content="Sitio no oficial de gráficas, visualizador de coronavirus covid-19 por estado en méxico. datos actualizados en base a la Secretaría de Salud.">
-    <meta property="og:image" content="https://fantasma.rip/covidmx/facebook.png">
+    <meta property="og:image" content="https://fantasma.rip/covidmx/assets/facebook.png">
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://fantasma.rip/covidmx/">
     <meta property="twitter:title" content="Coronavirus COVID-19 por estado en México :: Fantasma en la Máquina">
@@ -33,58 +33,21 @@
         gtag('config', 'UA-3171852-60');
     </script>
 
-    <meta property="twitter:image" content="https://fantasma.rip/covidmx/facebook.png">
+    <meta property="twitter:image" content="https://fantasma.rip/covidmx/assets/facebook.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
         integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
-    <link rel="apple-touch-icon" sizes="180x180" href="https://fantasma.rip/covidmx/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://fantasma.rip/covidmx/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://fantasma.rip/covidmx/favicon-16x16.png">
-    <link rel="manifest" href="https://fantasma.rip/covidmx/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://fantasma.rip/covidmx/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://fantasma.rip/covidmx/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://fantasma.rip/covidmx/assets/favicon-16x16.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#101010">
-    <link rel="stylesheet" href="https://fantasma.rip/covidmx/corona.css">
+    <link rel="stylesheet" href="corona.css">
 </head>
 
 <body>
-
     <div class="wrappi" id="wrappi">
-        <select id="estado" name="estado">
-            <option value="AG">AGUASCALIENTES</option>
-            <option value="BC">BAJA CALIFORNIA</option>
-            <option value="BS">BAJA CALIFORNIA SUR</option>
-            <option value="CM">CAMPECHE</option>
-            <option value="CO">COAHUILA</option>
-            <option value="CL">COLIMA</option>
-            <option value="CS">CHIAPAS</option>
-            <option value="CH">CHIHUAHUA</option>
-            <option value="CDMX" selected>CIUDAD DE MÉXICO</option>
-            <option value="DG">DURANGO</option>
-            <option value="GJ">GUANAJUATO</option>
-            <option value="GR">GUERRERO</option>
-            <option value="HG">HIDALGO</option>
-            <option value="JA">JALISCO</option>
-            <option value="MX">EDO. MÉXICO</option>
-            <option value="MI">MICHOACÁN</option>
-            <option value="MO">MORELOS</option>
-            <option value="NA">NAYARIT</option>
-            <option value="NL">NUEVO LEÓN</option>
-            <option value="OA">OAXACA</option>
-            <option value="PU">PUEBLA</option>
-            <option value="QT">QUERÉTARO</option>
-            <option value="QR">QUINTANA ROO</option>
-            <option value="SP">SAN LUIS POTOSÍ</option>
-            <option value="SI">SINALOA</option>
-            <option value="SO">SONORA</option>
-            <option value="TB">TABASCO</option>
-            <option value="TM">TAMAULIPAS</option>
-            <option value="TL">TLAXCALA</option>
-            <option value="VE">VERACRUZ</option>
-            <option value="YU">YUCATÁN</option>
-            <option value="ZA">ZACATECAS</option>
-        </select>
-        <div class="texto1"><b id="sospechosos"><span>0</span> Sospechosos</b>, <b id="infectados"><span>0</span>
-                infectados</b> y <b id="muertes"><span>0</span> muertes</b> por COVID-19 en <b id="aqui">Ciudad de
-                México</b>.</div>
+        <input type="date" id="estado" name="estado" value="2020-03-18" min="2020-03-18" max="2020-04-09">
+        <div class="texto1"><b id="infectados"><span>0</span> infectados</b> y <b id="muertes"><span>0</span> muertes</b> por COVID-19 en <b id="aqui">México</b>.</div>
         <div class="texto3">Información actualizada diario con la Secretaría de Salud de México, gracias a la librería
             de <a href="https://covid19.newtondreams.com/" target="_blank">@emirelesg</a></div>
         <div class="texto2">made by <a href="https://twitter.com/omarolaes" target="_blank">ömer</a> from <a
@@ -93,12 +56,13 @@
         <div class="prevarr"><i class="fas fa-angle-left"></i></div>
     </div>
 
+    <script src="/corona/assets/three.js"></script>
+    <script src="/corona/assets/OBJLoader.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"
-        integrity="sha256-gSh8eotzb/CVvCREGPUNgIWuDnTYnZvVOQnRrP1eDjI=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/three@0.85.0/examples/js/controls/OrbitControls.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
         integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
     <script src="corona.js"></script>
