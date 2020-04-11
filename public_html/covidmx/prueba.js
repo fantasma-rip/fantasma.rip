@@ -176,13 +176,19 @@
         $('.nextarr').click(function () {
             $('canvas').remove();
             setup();
-            var clave = $('#estado').val();
+            var clave = $('#pais').val();
             conseguirdatos(clave, multiplo, country);
         });
         $('.prevarr').click(function () {
             $('canvas').remove();
             setup();
-            var clave = $('#estado').val();
+            var clave = $('#pais').val();
+            conseguirdatos(clave, multiplo, country);
+        });
+        $('#fecha').on('change', function () {
+            $('canvas').remove();
+            setup();
+            var clave = $(this).val();
             conseguirdatos(clave, multiplo, country);
         });
         $('#pais').on('change', function () {
