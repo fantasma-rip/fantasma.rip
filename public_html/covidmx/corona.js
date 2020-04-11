@@ -106,7 +106,7 @@
                 figura.rotation.z = (Math.random() - 45) * R * 235 * Math.random();
 				figura.position.set(posiciones, posiciones2, posiciones3);
 
-                var distance_squared = figura.position.x * figura.position.x + object.position.y * figura.position.y + figura.position.z * figura.position.z;
+                var distance_squared = figura.position.x * figura.position.x + figura.position.y * figura.position.y + figura.position.z * figura.position.z;
 
                 if (distance_squared <= R * R) {
                     scene.add(figura);
