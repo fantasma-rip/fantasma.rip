@@ -9,7 +9,7 @@ body {
     padding: 0;
     width: 100%;
     font-family: 'Inria Sans', sans-serif;
-    background: #333136;
+    background: #0d0d0d;
 }
 
 h1,
@@ -41,7 +41,7 @@ div#centinela {
     border: 1px solid #333333;
 }
 div#centinela.activo{
-    border: 1px solid #F44D41;
+    border: 1px solid #CE5D43;
 }
 input#estado {
     display: block;
@@ -89,7 +89,7 @@ input#estado {
 }
 
 .texto1 #muertes {
-    color: #F44D41;
+    color: #CE5D43;
 }
 
 .texto2 {
@@ -156,7 +156,7 @@ input#estado {
 }
 
 .datos .estadogrph:hover {
-    background: #F44D41;
+    background: #CE5D43;
     opacity: 1;
 }
 
@@ -183,8 +183,8 @@ input#estado {
 }
 
 .datos .estadogrph span.deaths {
-    border: 1px solid #333136;
-    color: #333136;
+    border: 1px solid #0d0d0d;
+    color: #0d0d0d;
     bottom: -8vw;
 }
 
@@ -192,7 +192,7 @@ input#estado {
     position: fixed;
     bottom: 5.5vh;
     right: 0;
-    color: #F44D41;
+    color: #CE5D43;
     padding: 0;
     z-index: 9999;
     cursor: pointer;
@@ -206,7 +206,7 @@ input#estado {
     position: fixed;
     bottom: 5.5vh;
     left: 0;
-    color: #F44D41;
+    color: #CE5D43;
     padding: 0;
     z-index: 9999;
     cursor: pointer;
