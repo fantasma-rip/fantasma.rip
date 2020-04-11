@@ -76,7 +76,7 @@
         }
 
         function setupLights() {
-            let ambientLight = new THREE.AmbientLight(0x151515);
+            let ambientLight = new THREE.AmbientLight(0x35303D);
             scene.add(ambientLight);
             let spotLight = new THREE.SpotLight(0xffffff);
             spotLight.position.set( 100, 1000, 100 );
@@ -107,15 +107,15 @@
                 object = object.clone();
 
                 if (i < muertes) {
-                    object.scale.set(0.05,0.05,0.05);
+                    object.scale.set(0.035,0.035,0.035);
                     var material = new THREE.MeshToonMaterial({
-                        color: 0xfbda6d
+                        color: 0xD44E60
                     });
                     
                 } else {
                     object.scale.set(0.01,0.01,0.01);
                     var material = new THREE.MeshToonMaterial({
-                        color: 0x656565
+                        color: 0x907581
                     });
                 }
                 
