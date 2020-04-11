@@ -190,18 +190,18 @@
             setup();
             var country = $('#pais option:selected').val();
             console.log(country);
-            clave = $(this).val();
-            clave = new Date(clave);
-            clave = clave.toString('MM-DD-YYYY');
+            var claveformato = $(this).val();
+            claveformato = new Date(claveformato);
+            clave = claveformato.toString('MM-DD-YYYY');
             console.log(clave);
             conseguirdatos(clave, country);
         });
         $('#pais').on('change', function () {
             $('canvas').remove();
             setup();
-            clave = $('#fecha').val();
-            clave = new Date(clave);
-            clave = clave.toString('MM-DD-YYYY');
+            var claveformato = $('#fecha').val();
+            claveformato = new Date(claveformato);
+            clave = claveformato.toString('MM-DD-YYYY');
             console.log(clave);
             var country = $("option:selected", this);
             console.log(country);
