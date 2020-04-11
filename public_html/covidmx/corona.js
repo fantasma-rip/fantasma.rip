@@ -173,19 +173,19 @@
             $('canvas').remove();
             setup();
             var clave = $('#estado').val();
-            conseguirdatos(clave);
+            conseguirdatos(clave, multiplo);
         });
         $('.prevarr').click(function () {
             $('canvas').remove();
             setup();
             var clave = $('#estado').val();
-            conseguirdatos(clave);
+            conseguirdatos(clave, multiplo);
         });
         $('#estado').on('change', function () {
             $('canvas').remove();
             setup();
             var clave = $(this).val();
-            conseguirdatos(clave);
+            conseguirdatos(clave, multiplo);
         });
         $('#centinela').click(function () {
             if($(this).hasClass('activo')){
