@@ -84,9 +84,12 @@ input#fecha {
     width: 100%;
     bottom: 0;
     position: fixed;
+    overflow: scroll;
     left: 0;
-    height: 20vh;
-    z-index: 9;
+    height: 100vh;
+    z-index: 99;
+    background: white;
+    color: black;
     display: flex;
     flex-flow: wrap;
     justify-content: center;
@@ -103,10 +106,14 @@ input#fecha {
     text-align: center;
 }
 .pais_select {
-    color: white;
-    flex: 1;
-    font-size: 5vw;
-    padding: 2vw;
+    color: black;
+    flex: 1 50%;
+    font-size: 12px;
+    padding: 1vw;
+    text-align: left;
+}
+.pais_select b{
+    margin-right: 2vw;
 }
 .pais_select span{
     display: none
