@@ -24,7 +24,7 @@
         var clave = '2020-04-10';
         var multiplo = 1;
 
-        conseguirdatos(clave);
+        conseguirdatos(clave, multiplo);
 
         var tenerdatos = '';
         var error = '';
@@ -91,7 +91,6 @@
         function imprimir(fecha, confirmados,
             muertes, multiplo) {
 
-                alert(multiplo);
 
 
             let loader = new THREE.OBJLoader();
@@ -103,7 +102,11 @@
 
 
             var R = 20;
-            var pop = (confirmados + muertes) * multiplo;
+            if(multiplo == undefined){
+                var pop = (confirmados + muertes) * multiplo;
+            }else{
+                var pop = (confirmados + muertes);
+            }
             for (let i = 0; i < pop;) {
                 var posiciones = (Math.random() - 0.5) * R * 2 * Math.random();
                 var posiciones2 = (Math.random() - 0.5) * R * 2 * Math.random();
