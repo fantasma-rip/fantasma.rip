@@ -19,7 +19,6 @@
         var datos = 'https://raw.githubusercontent.com/emirelesg/covid19-mx/master/public/api/stats.json';
 
         var fecha = '';
-        var confirmados = '';
         var muertes = '';
         var clave = '2020-04-10';
         var multiplo = 1;
@@ -34,12 +33,10 @@
                 $.each(data.timeseries, function (index, value) {
                     if (value.date == clave) {
                         fecha = value.date;
-                        confirmados = value.confirmed * multiplo;
-                        muertes = value.deaths;
-                        $('#infectados span').html(Math.ceil(confirmados));
+                        muertes = value.deaths * multiplo;
                         $('#muertes span').html(Math.ceil(muertes));
                         $('#fecha').html(fecha);
-                        imprimir(fecha, confirmados,
+                        imprimir(fecha,
                             muertes);
                     }
                 });
@@ -85,7 +82,7 @@
             scene.add(spotLight);
         }
 
-        function imprimir(fecha, confirmados,
+        function imprimir(fecha,
             muertes) {
 
 
@@ -99,8 +96,8 @@
 
 
             var R = 20;
-            var pop = confirmados + muertes;
-            for (let i = 0; i < pop;) {
+
+            for (let i = 0; i < muertes;) {
                 var posiciones = (Math.random() - 0.5) * R * 2 * Math.random();
                 var posiciones2 = (Math.random() - 0.5) * R * 2 * Math.random();
                 var posiciones3 = (Math.random() - 0.5) * R * 2 * Math.random();
@@ -115,6 +112,7 @@
                     });
                     
                 } else {
+                    object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
                     object.scale.set(0.005,0.005,0.005);
                     var material = new THREE.MeshBasicMaterial({
                         color: 0x093395
