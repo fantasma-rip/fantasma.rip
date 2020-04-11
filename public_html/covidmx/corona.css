@@ -43,7 +43,7 @@ div#centinela {
 div#centinela.activo{
     border: 1px solid #dc2525;
 }
-input#pais {
+#pais {
     display: block;
     margin: 1vw 0;
     font-weight: 100;

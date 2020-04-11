@@ -188,7 +188,7 @@
         $('#fecha').on('change', function () {
             $('canvas').remove();
             setup();
-            var country = $(('#pais option:selected').val();
+            var country = $('#pais option:selected').val();
             clave = $(this).val();
             clave = new Date(clave);
             clave = clave.toString('MM-DD-YYYY');
