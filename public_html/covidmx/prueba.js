@@ -38,6 +38,9 @@
                         $('#fecha').html(fecha);
                         imprimir(fecha,
                             muertes);
+                    }else{
+                        console.log(value.date);
+                        console.log(value.deaths);
                     }
                 });
             }).done(function () {
