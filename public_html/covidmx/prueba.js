@@ -179,6 +179,8 @@
         });
         */
         $('.pais_select').click(function () {
+            $(this).parent().toggleClass('activo');
+            $(this).toggleClass('activo');
             $('canvas').remove();
             setup();
             var country = $(this).attr('nombre');

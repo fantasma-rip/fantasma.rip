@@ -82,7 +82,7 @@ input#fecha {
 
 .paises {
     width: 100%;
-    bottom: 0;
+    bottom: -150vh;
     position: fixed;
     overflow: scroll;
     left: 0;
@@ -94,6 +94,9 @@ input#fecha {
     flex-flow: wrap;
     justify-content: center;
     align-items: center;
+}
+.paises.activo{
+    bottom: 0;
 }
 .paises::before{
     content: 'Mexico';
@@ -111,6 +114,9 @@ input#fecha {
     font-size: 12px;
     padding: 1vw;
     text-align: left;
+}
+.pais_select.activo{
+    border: 1px solid #dc2525;
 }
 .pais_select b{
     margin-right: 2vw;
