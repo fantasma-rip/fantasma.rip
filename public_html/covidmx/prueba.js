@@ -32,14 +32,17 @@
 
             tenerdatos = $.getJSON(datos, function (data) {
                 $.each(data, function (index, value) {
+                    if (value.date == clave) {
                         fecha = value.date;
                         muertes = value.deaths * multiplo;
                         $('#muertes span').html(Math.ceil(muertes));
                         $('#fecha').html(fecha);
                         imprimir(fecha,
                             muertes);
+                    }else{
                         console.log(value.date);
                         console.log(value.deaths);
+                    }
                 });
             }).done(function () {
                 console.log("todo bien");
