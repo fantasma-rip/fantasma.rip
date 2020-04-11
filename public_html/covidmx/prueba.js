@@ -189,10 +189,12 @@
             $('canvas').remove();
             setup();
             var country = $('#pais option:selected').val();
+            console.log(country);
             clave = $(this).val();
             clave = new Date(clave);
             clave = clave.toString('MM-DD-YYYY');
-            conseguirdatos(clave, multiplo, country);
+            console.log(clave);
+            conseguirdatos(clave, country);
         });
         $('#pais').on('change', function () {
             $('canvas').remove();
@@ -200,8 +202,10 @@
             clave = $('#fecha').val();
             clave = new Date(clave);
             clave = clave.toString('MM-DD-YYYY');
+            console.log(clave);
             var country = $("option:selected", this);
-            conseguirdatos(clave, multiplo, country);
+            console.log(country);
+            conseguirdatos(clave, country);
         });
         $('#centinela').click(function () {
             if($(this).hasClass('activo')){
