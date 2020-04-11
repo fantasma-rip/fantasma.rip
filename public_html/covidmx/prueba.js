@@ -191,8 +191,12 @@
             var country = $('#pais option:selected').val();
             console.log(country);
             var claveformato = $(this).val();
-            claveformato = new Date(claveformato);
-            clave = claveformato.toString('MM-DD-YYYY');
+            var claveformato = new Date(claveformato);
+var d = claveformato.getDate();
+var m =  claveformato.getMonth();
+m += 1;  // JavaScript months are 0-11
+var y = claveformato.getFullYear();
+clave = d + "-" + m + "-" + y;
             console.log(clave);
             conseguirdatos(clave, country);
         });
