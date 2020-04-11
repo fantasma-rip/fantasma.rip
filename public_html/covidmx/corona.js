@@ -34,13 +34,13 @@
                 $.each(data.timeseries, function (index, value) {
                     if (value.date == clave) {
                         fecha = value.date;
-                        confirmados = value.confirmed;
-                        muertes = value.deaths;
+                        confirmados = value.confirmed * multiplo;
+                        muertes = value.deaths * multiplo;
                         $('#infectados span').html(confirmados);
                         $('#muertes span').html(muertes);
                         $('#fecha').html(fecha);
                         imprimir(fecha, confirmados,
-                            muertes, multiplo);
+                            muertes);
                     }
                 });
             }).done(function () {
@@ -89,7 +89,7 @@
         }
 
         function imprimir(fecha, confirmados,
-            muertes, multiplo) {
+            muertes) {
 
 
 
@@ -102,11 +102,7 @@
 
 
             var R = 20;
-            if(multiplo == undefined){
-                var pop = (confirmados + muertes) * multiplo;
-            }else{
-                var pop = (confirmados + muertes);
-            }
+            var pop = confirmados + muertes;
             for (let i = 0; i < pop;) {
                 var posiciones = (Math.random() - 0.5) * R * 2 * Math.random();
                 var posiciones2 = (Math.random() - 0.5) * R * 2 * Math.random();
