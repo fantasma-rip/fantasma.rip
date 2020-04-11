@@ -196,16 +196,20 @@ var d = claveformato.getDate();
 var m =  claveformato.getMonth();
 m += 1;  // JavaScript months are 0-11
 var y = claveformato.getFullYear();
-clave = d + "-" + m + "-" + y;
+clave = y + "-" + m + "-" + d;
             console.log(clave);
             conseguirdatos(clave, country);
         });
         $('#pais').on('change', function () {
             $('canvas').remove();
             setup();
-            var claveformato = $('#fecha').val();
-            claveformato = new Date(claveformato);
-            clave = claveformato.toString('MM-DD-YYYY');
+            var claveformato = $(this).val();
+            var claveformato = new Date(claveformato);
+var d = claveformato.getDate();
+var m =  claveformato.getMonth();
+m += 1;  // JavaScript months are 0-11
+var y = claveformato.getFullYear();
+clave = y + "-" + m + "-" + d;
             console.log(clave);
             var country = $("option:selected", this);
             console.log(country);
