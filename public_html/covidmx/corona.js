@@ -76,7 +76,7 @@
         }
 
         function setupLights() {
-            let ambientLight = new THREE.AmbientLight(0x101010);
+            let ambientLight = new THREE.AmbientLight(0x353535);
             scene.add(ambientLight);
             let spotLight = new THREE.SpotLight(0xffffff);
             spotLight.position.set( -10, -10, -10);
