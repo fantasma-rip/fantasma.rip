@@ -110,13 +110,13 @@
                 if (i < muertes) {
                     object.scale.set(0.035,0.035,0.035);
                     object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
-                    var material = new THREE.MeshToonMaterial({
+                    var material = new THREE.MeshLambertMaterial({
                         color: 0xFC4F8C
                     });
                     
                 } else {
                     object.scale.set(0.01,0.01,0.01);
-                    var material = new THREE.MeshToonMaterial({
+                    var material = new THREE.MeshBasicMaterial({
                         color: 0xFBE415
                     });
                 }
