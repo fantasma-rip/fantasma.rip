@@ -112,8 +112,8 @@
 
                 if (i < muertes) {
                     object.scale.set(0.05,0.05,0.05);
-                    var material = new THREE.MeshLambertMaterial({
-                        color: 0xFB525B
+                    var material = new THREE.MeshToonMaterial({
+                        color: 0xfbda6d
                     });
                     
                 } else {
