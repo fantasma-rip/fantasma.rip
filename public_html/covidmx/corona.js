@@ -1,7 +1,6 @@
 (function ($) {
     $(window).on('load', function () {
 
-
         let scene;
         let camera;
         let renderer;
@@ -87,10 +86,12 @@
             spotLight2.position.set( 10, 10, 10);
             spotLight2.castShadow = true;
             scene.add(spotLight2);
-
         }
 
-        function imprimir(multiplo) {
+        function imprimir(fecha, confirmados,
+            muertes, multiplo) {
+
+                alert(multiplo);
 
 
             let loader = new THREE.OBJLoader();
@@ -142,18 +143,15 @@
                 }
             }
 
-        },
-        xhr => {
-            let amount = Math.round(xhr.loaded / xhr.total * 100);
-            console.log(`${amount}% loaded`);
-        },
-        () => {
-            console.log('An error happened');
-        }
-    );
-
-
-
+            },
+            xhr => {
+                let amount = Math.round(xhr.loaded / xhr.total * 100);
+                console.log(`${amount}% loaded`);
+            },
+            () => {
+                console.log('An error happened');
+            }
+        );
 
 
         }
@@ -163,7 +161,6 @@
             requestAnimationFrame(draw);
             renderer.render(scene, camera);
         }
-
 
 
         function setupEventListeners() {
