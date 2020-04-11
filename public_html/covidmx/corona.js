@@ -200,12 +200,14 @@
         $('#centinela').click(function () {
             if($(this).hasClass('activo')){
                 $(this).removeClass('activo');
+                $(this).html('Activar Modelo Centinela');
                 $('canvas').remove();
                 setup();
                 multiplo = 1;
                 conseguirdatos(clave, multiplo);
             }else{
                 $(this).addClass('activo');
+                $(this).html('Desactivar Modelo Centinela');
                 $('canvas').remove();
                 setup();
                 multiplo = 8.2;

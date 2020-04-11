@@ -38,6 +38,9 @@ div#centinela {
     text-align: center;
     letter-spacing: 2px;
     border-radius: 4px;
+    border: 1px solid #333333;
+}
+div#centinela.activo{
     border: 1px solid #FB525B;
 }
 input#estado {
