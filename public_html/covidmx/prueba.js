@@ -86,8 +86,6 @@
         function imprimir(fecha,
             muertes) {
 
-
-
             let loader = new THREE.OBJLoader();
             let url = "models/humano.obj"
 
@@ -105,21 +103,12 @@
 
                 object = object.clone();
 
-                if (i < muertes) {
-                    object.scale.set(0.025,0.025,0.025);
-                    object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
-                    var material = new THREE.MeshLambertMaterial({
-                        color: 0xF44D41
-                    });
-                    
-                } else {
-                    object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
-                    object.scale.set(0.005,0.005,0.005);
-                    var material = new THREE.MeshBasicMaterial({
-                        color: 0x093395
-                    });
-                }
-                
+                object.scale.set(0.025,0.025,0.025);
+                object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
+                var material = new THREE.MeshBasicMaterial({
+                    color: 0xF44D41
+                });
+
                 object.traverse( ( obj ) => {
 
                     if ( obj instanceof THREE.Mesh ) obj.material = material;
