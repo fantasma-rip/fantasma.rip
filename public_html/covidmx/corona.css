@@ -43,7 +43,25 @@ div#centinela {
 div#centinela.activo{
     border: 1px solid #dc2525;
 }
-input#estado {
+input#pais {
+    display: block;
+    margin: 1vw 0;
+    font-weight: 100;
+    font-size: 14px;
+    text-transform: uppercase;
+    width: 80vw;
+    max-width: 500px;
+    cursor: pointer;
+    position: fixed;
+    letter-spacing: 1px;
+    top: 15vh;
+    z-index: 999999;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+input#fecha {
     display: block;
     margin: 1vw 0;
     font-weight: 100;
@@ -61,6 +79,7 @@ input#estado {
     padding: 10px 15px;
     border-radius: 5px;
 }
+
 
 
 .texto1 {

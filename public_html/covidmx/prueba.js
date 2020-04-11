@@ -31,7 +31,7 @@
         function conseguirdatos(clave, multiplo, country) {
 
             tenerdatos = $.getJSON(datos, function (data) {
-                $.each(data.[country], function (index, value) {
+                $.each(data[country], function (index, value) {
                     if (value.date == clave) {
                         fecha = value.date;
                         muertes = value.deaths * multiplo;
