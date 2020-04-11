@@ -183,6 +183,8 @@
         });
        
         $('.p_se').click(function () {
+            $('.paises').removeClass('activo');
+            $('.p_se').removeClass('activo');
             $(this).toggleClass('activo');
             $('canvas').remove();
             setup();
