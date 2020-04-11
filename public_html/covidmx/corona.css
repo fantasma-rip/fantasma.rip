@@ -62,7 +62,7 @@ div#centinela.activo{
     border-radius: 5px;
 }
 input#fecha {
-    display: block;
+    display: none;
     margin: 1vw 0;
     font-weight: 100;
     font-size: 14px;

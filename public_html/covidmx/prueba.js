@@ -20,7 +20,7 @@
 
         var fecha = '';
         var muertes = '';
-        var country = 'Mexico';
+        var country = 'Canada';
         var clave = '2020-4-10';
         var multiplo = 1;
 
@@ -173,6 +173,7 @@
 
 
 
+        /*
         $('.nextarr').click(function () {
         });
         $('.prevarr').click(function () {
@@ -182,21 +183,25 @@
             setup();
             var claveformato = $(this).val();
             var claveformato = new Date(claveformato);
-var d = claveformato.getDate();
-var m =  claveformato.getMonth();
-m += 1;  // JavaScript months are 0-11
-var y = claveformato.getFullYear();
-clave = y + "-" + m + "-" + d;
-console.log(clave);
-conseguirdatos(clave);
+            var d = claveformato.getDate();
+            var m =  claveformato.getMonth();
+            m += 1;  // JavaScript months are 0-11
+            var y = claveformato.getFullYear();
+            clave = y + "-" + m + "-" + d;
+            console.log(clave);
+            conseguirdatos(clave);
         });
+        */
         $('#pais').on('change', function () {
             $('canvas').remove();
             setup();
-            var country = $("option:selected", this);
+            var country = $(this).val();
             console.log(country);
-            conseguirdatos(country);
+            var clave = '2020-4-10';
+            var multiplo = 1;
+            conseguirdatos(clave, multiplo, country);
         });
+        /*
         $('#centinela').click(function () {
             if($(this).hasClass('activo')){
                 $(this).removeClass('activo');
@@ -214,6 +219,7 @@ conseguirdatos(clave);
                 conseguirdatos(clave, multiplo, country);
             }
         });
+        */
 
 
 
