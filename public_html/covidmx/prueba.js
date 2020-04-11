@@ -16,7 +16,7 @@
             setupEventListeners();
         }
 
-        var datos = 'https://raw.githubusercontent.com/emirelesg/covid19-mx/master/public/api/stats.json';
+        var datos = 'https://pomber.github.io/covid19/timeseries.json';
 
         var fecha = '';
         var muertes = '';
@@ -30,7 +30,7 @@
         function conseguirdatos(clave, multiplo) {
 
             tenerdatos = $.getJSON(datos, function (data) {
-                $.each(data.timeseries, function (index, value) {
+                $.each(data["Argentina"], function (index, value) {
                     if (value.date == clave) {
                         fecha = value.date;
                         muertes = value.deaths * multiplo;
