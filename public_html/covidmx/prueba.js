@@ -20,6 +20,7 @@
 
         var fecha = '';
         var muertes = '';
+        var pais = 'Mexico';
         var clave = '2020-4-10';
         var multiplo = 1;
 
@@ -30,18 +31,15 @@
         function conseguirdatos(clave, multiplo) {
 
             tenerdatos = $.getJSON(datos, function (data) {
-                $.each(data["Argentina"], function (index, value) {
-                    if (value.date == clave) {
+                $.each(data, function (index, value) {
                         fecha = value.date;
                         muertes = value.deaths * multiplo;
                         $('#muertes span').html(Math.ceil(muertes));
                         $('#fecha').html(fecha);
                         imprimir(fecha,
                             muertes);
-                    }else{
                         console.log(value.date);
                         console.log(value.deaths);
-                    }
                 });
             }).done(function () {
                 console.log("todo bien");
