@@ -36,8 +36,8 @@
                         fecha = value.date;
                         confirmados = value.confirmed * multiplo;
                         muertes = value.deaths * multiplo;
-                        $('#infectados span').html(confirmados);
-                        $('#muertes span').html(muertes);
+                        $('#infectados span').html(Math.ceil(confirmados));
+                        $('#muertes span').html(Math.ceil(muertes));
                         $('#fecha').html(fecha);
                         imprimir(fecha, confirmados,
                             muertes);
