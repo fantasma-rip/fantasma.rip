@@ -16,7 +16,7 @@
             setupEventListeners();
         }
 
-        var datos = 'https://raw.githubusercontent.com/emirelesg/covid19-mx/master/public/api/stats.json';
+        var datos = 'https://pomber.github.io/covid19/timeseries.json';
 
         var fecha = '';
         var muertes = '';
@@ -30,7 +30,7 @@
         function conseguirdatos(clave, multiplo) {
 
             tenerdatos = $.getJSON(datos, function (data) {
-                $.each(data.timeseries, function (index, value) {
+                $.each(data.Argentina, function (index, value) {
                     if (value.date == clave) {
                         fecha = value.date;
                         muertes = value.deaths * multiplo;
@@ -190,14 +190,14 @@
         $('#centinela').click(function () {
             if($(this).hasClass('activo')){
                 $(this).removeClass('activo');
-                $(this).html('Activar Modelo Centinela');
+                $(this).html('Activar escala 1 : 8');
                 $('canvas').remove();
                 setup();
                 multiplo = 1;
                 conseguirdatos(clave, multiplo);
             }else{
                 $(this).addClass('activo');
-                $(this).html('Desactivar Modelo Centinela');
+                $(this).html('Activar escala 1 : 1');
                 $('canvas').remove();
                 setup();
                 multiplo = 8.2;
