@@ -19,28 +19,29 @@
 
         var datos = 'https://raw.githubusercontent.com/emirelesg/covid19-mx/master/public/api/stats.json';
 
-        var nombre = '';
+        var fecha = '';
         var confirmados = '';
         var muertes = '';
-        var clave = '2020-04-09';
+        var clave = '2020-04-10';
+        var multiplo = 1;
 
         conseguirdatos(clave);
 
         var tenerdatos = '';
         var error = '';
-        function conseguirdatos(clave) {
+        function conseguirdatos(clave, multiplo) {
 
             tenerdatos = $.getJSON(datos, function (data) {
                 $.each(data.timeseries, function (index, value) {
                     if (value.date == clave) {
-                        nombre = value.name;
+                        fecha = value.date;
                         confirmados = value.confirmed;
                         muertes = value.deaths;
                         $('#infectados span').html(confirmados);
                         $('#muertes span').html(muertes);
-                        $('#aqui').html(nombre);
-                        imprimir(nombre, confirmados,
-                            muertes);
+                        $('#fecha').html(fecha);
+                        imprimir(fecha, confirmados,
+                            muertes, multiplo);
                     }
                 });
             }).done(function () {
@@ -89,7 +90,7 @@
 
         }
 
-        function imprimir() {
+        function imprimir(multiplo) {
 
 
             let loader = new THREE.OBJLoader();
@@ -101,7 +102,7 @@
 
 
             var R = 20;
-            var pop = confirmados + muertes;
+            var pop = (confirmados + muertes) * multiplo;
             for (let i = 0; i < pop;) {
                 var posiciones = (Math.random() - 0.5) * R * 2 * Math.random();
                 var posiciones2 = (Math.random() - 0.5) * R * 2 * Math.random();
@@ -195,6 +196,21 @@
             setup();
             var clave = $(this).val();
             conseguirdatos(clave);
+        });
+        $('#centinela').click(function () {
+            if($(this).hasClass('activo')){
+                $(this).removeClass('activo');
+                $('canvas').remove();
+                setup();
+                multiplo = 1;
+                conseguirdatos(clave, multiplo);
+            }else{
+                $(this).addClass('activo');
+                $('canvas').remove();
+                setup();
+                multiplo = 8.2;
+                conseguirdatos(clave, multiplo);
+            }
         });
 
 
