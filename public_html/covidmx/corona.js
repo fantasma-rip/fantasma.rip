@@ -76,9 +76,9 @@
         }
 
         function setupLights() {
-            let ambientLight = new THREE.AmbientLight(0xf0f0f0);
+            let ambientLight = new THREE.AmbientLight(0x656565);
             scene.add(ambientLight);
-            scene.background = new THREE.Color( 0x333136 );
+            scene.background = new THREE.Color( 0x151515 );
             let spotLight = new THREE.SpotLight(0xf0f0f0);
             spotLight.position.set( 100, 1000, 100 );
             spotLight.castShadow = true;
@@ -108,16 +108,16 @@
                 object = object.clone();
 
                 if (i < muertes) {
-                    object.scale.set(0.035,0.035,0.035);
+                    object.scale.set(0.025,0.025,0.025);
                     object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
                     var material = new THREE.MeshLambertMaterial({
-                        color: 0xFC4F8C
+                        color: 0xF44D41
                     });
                     
                 } else {
-                    object.scale.set(0.01,0.01,0.01);
+                    object.scale.set(0.005,0.005,0.005);
                     var material = new THREE.MeshBasicMaterial({
-                        color: 0xFBE415
+                        color: 0x353535
                     });
                 }
                 
