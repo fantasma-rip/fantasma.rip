@@ -178,8 +178,12 @@
             conseguirdatos(clave);
         });
         */
+        $('.paises::before').click(function () {
+            $(this).toggleClass('activo');
+        });
+       
         $('.pais_select').click(function () {
-            $(this).parent().toggleClass('activo');
+            $(this).parent().removeClass('activo');
             $(this).toggleClass('activo');
             $('canvas').remove();
             setup();
