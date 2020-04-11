@@ -189,10 +189,10 @@
             conseguirdatos(clave);
         });
         */
-        $('#pais').find('option').click(function () {
+        $('.pais_select').click(function () {
             $('canvas').remove();
             setup();
-            var country = $(this).val();
+            var country = $(this).attr('nombre');
             console.log(country);
             var clave = '2020-4-10';
             var multiplo = 1;
