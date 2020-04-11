@@ -24,8 +24,8 @@ h3 {
     display: none;
 }
 div#centinela {
-    background: black;
-    width: 240px;
+    background: rgba(0, 0, 0, 0.85);
+    width: 265px;
     position: fixed;
     bottom: 110px;
     left: 50%;
