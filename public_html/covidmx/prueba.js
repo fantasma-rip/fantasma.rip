@@ -174,22 +174,12 @@
 
 
         $('.nextarr').click(function () {
-            $('canvas').remove();
-            setup();
-            var clave = $('#pais').val();
-            conseguirdatos(clave, multiplo, country);
         });
         $('.prevarr').click(function () {
-            $('canvas').remove();
-            setup();
-            var clave = $('#pais').val();
-            conseguirdatos(clave, multiplo, country);
         });
         $('#fecha').on('change', function () {
             $('canvas').remove();
             setup();
-            var country = $('#pais option:selected').val();
-            console.log(country);
             var claveformato = $(this).val();
             var claveformato = new Date(claveformato);
 var d = claveformato.getDate();
@@ -197,23 +187,15 @@ var m =  claveformato.getMonth();
 m += 1;  // JavaScript months are 0-11
 var y = claveformato.getFullYear();
 clave = y + "-" + m + "-" + d;
-            console.log(clave);
-            conseguirdatos(clave, country);
+console.log(clave);
+conseguirdatos(clave);
         });
         $('#pais').on('change', function () {
             $('canvas').remove();
             setup();
-            var claveformato = $(this).val();
-            var claveformato = new Date(claveformato);
-var d = claveformato.getDate();
-var m =  claveformato.getMonth();
-m += 1;  // JavaScript months are 0-11
-var y = claveformato.getFullYear();
-clave = y + "-" + m + "-" + d;
-            console.log(clave);
             var country = $("option:selected", this);
             console.log(country);
-            conseguirdatos(clave, country);
+            conseguirdatos(country);
         });
         $('#centinela').click(function () {
             if($(this).hasClass('activo')){
