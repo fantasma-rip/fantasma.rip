@@ -20,7 +20,7 @@
 
         var fecha = '';
         var muertes = '';
-        var country = 'Canada';
+        var country = 'Mexico';
         var clave = '2020-4-10';
         var multiplo = 1;
 
@@ -39,18 +39,15 @@
                         $('#fecha').html(fecha);
                         imprimir(fecha,
                             muertes);
-                    }else{
-                        console.log(value.date);
-                        console.log(value.deaths);
                     }
                 });
             }).done(function () {
-                console.log("todo bien");
+                console.log("corrio los datos");
             }).fail(function (tenerdatos, textStatus, error) {
                 var err = textStatus + ', ' + error;
                 console.log("fallo: " + err);
             }).always(function () {
-                console.log("completo");
+                console.log("cargo completo");
             });
 
         }
