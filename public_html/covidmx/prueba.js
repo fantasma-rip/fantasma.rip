@@ -200,7 +200,7 @@
             clave = $('#fecha').val();
             clave = new Date(clave);
             clave = clave.toString('MM-DD-YYYY');
-            var clave = $("option:selected", this);
+            var country = $("option:selected", this);
             conseguirdatos(clave, multiplo, country);
         });
         $('#centinela').click(function () {
