@@ -35,7 +35,7 @@
                     if (value.date == clave) {
                         fecha = value.date;
                         confirmados = value.confirmed * multiplo;
-                        muertes = value.deaths * multiplo;
+                        muertes = value.deaths;
                         $('#infectados span').html(Math.ceil(confirmados));
                         $('#muertes span').html(Math.ceil(muertes));
                         $('#fecha').html(fecha);
@@ -78,7 +78,7 @@
         function setupLights() {
             let ambientLight = new THREE.AmbientLight(0x656565);
             scene.add(ambientLight);
-            scene.background = new THREE.Color( 0x151515 );
+            scene.background = new THREE.Color( 0xBEBFBD );
             let spotLight = new THREE.SpotLight(0xf0f0f0);
             spotLight.position.set( 100, 1000, 100 );
             spotLight.castShadow = true;
@@ -117,7 +117,7 @@
                 } else {
                     object.scale.set(0.005,0.005,0.005);
                     var material = new THREE.MeshBasicMaterial({
-                        color: 0x353535
+                        color: 0xBEBFBD
                     });
                 }
                 

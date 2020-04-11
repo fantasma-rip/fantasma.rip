@@ -85,7 +85,7 @@ input#estado {
 .texto1 b span {}
 
 .texto1 #infectados {
-    color: #584F9B;
+    color: #BEBFBD;
 }
 
 .texto1 #muertes {
@@ -177,8 +177,8 @@ input#estado {
 }
 
 .datos .estadogrph span.confirmed {
-    border: 1px solid #584F9B;
-    color: #584F9B;
+    border: 1px solid #BEBFBD;
+    color: #BEBFBD;
     top: -8vw;
 }
 
