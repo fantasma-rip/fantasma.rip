@@ -178,17 +178,16 @@
             conseguirdatos(clave);
         });
         */
-        $('.paises::before').click(function () {
+        $('.elpais').click(function () {
             $('.paises').addClass('activo');
         });
        
         $('.p_se').click(function () {
-            $(this).parent().removeClass('activo');
             $(this).toggleClass('activo');
             $('canvas').remove();
             setup();
             var country = $(this).attr('nombre');
-            console.log(country);
+            $('.elpais').html(country);
             var clave = '2020-4-10';
             var multiplo = 1;
             conseguirdatos(clave, multiplo, country);

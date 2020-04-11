@@ -85,6 +85,7 @@ input#fecha {
     bottom: -150vh;
     position: fixed;
     overflow: scroll;
+    transition: ease all 500ms;
     left: 0;
     height: 100vh;
     z-index: 99;
@@ -98,8 +99,7 @@ input#fecha {
 .paises.activo{
     bottom: 0;
 }
-.paises::before{
-    content: 'Mexico';
+.elpais{
     position: fixed;
     bottom: 10vh;
     background: white;
