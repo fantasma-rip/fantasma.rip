@@ -192,7 +192,7 @@
             conseguirdatos(clave);
         });
         */
-        $('#pais').on('change', function () {
+        $('#pais').find('option').click(function () {
             $('canvas').remove();
             setup();
             var country = $(this).val();
