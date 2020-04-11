@@ -41,7 +41,7 @@ div#centinela {
     border: 1px solid #333333;
 }
 div#centinela.activo{
-    border: 1px solid #CE5D43;
+    border: 1px solid #dc2525;
 }
 input#estado {
     display: block;
@@ -85,11 +85,11 @@ input#estado {
 .texto1 b span {}
 
 .texto1 #infectados {
-    color: #BEBFBD;
+    color: #093395;
 }
 
 .texto1 #muertes {
-    color: #CE5D43;
+    color: #dc2525;
 }
 
 .texto2 {
@@ -156,7 +156,7 @@ input#estado {
 }
 
 .datos .estadogrph:hover {
-    background: #CE5D43;
+    background: #dc2525;
     opacity: 1;
 }
 
@@ -177,8 +177,8 @@ input#estado {
 }
 
 .datos .estadogrph span.confirmed {
-    border: 1px solid #BEBFBD;
-    color: #BEBFBD;
+    border: 1px solid #093395;
+    color: #093395;
     top: -8vw;
 }
 
@@ -192,7 +192,7 @@ input#estado {
     position: fixed;
     bottom: 5.5vh;
     right: 0;
-    color: #CE5D43;
+    color: #dc2525;
     padding: 0;
     z-index: 9999;
     cursor: pointer;
@@ -206,7 +206,7 @@ input#estado {
     position: fixed;
     bottom: 5.5vh;
     left: 0;
-    color: #CE5D43;
+    color: #dc2525;
     padding: 0;
     z-index: 9999;
     cursor: pointer;
