@@ -179,7 +179,7 @@
         });
         */
         $('.elpais').click(function () {
-            $('.paises').addClass('activo');
+            $('.paises').toggleClass('activo');
         });
        
         $('.p_se').click(function () {
@@ -188,7 +188,7 @@
             $(this).toggleClass('activo');
             $('canvas').remove();
             setup();
-            var country = $(this).attr('nombre');
+            var country = $(this).find('p').html();
             $('.elpais').html(country);
             var clave = '2020-4-10';
             var multiplo = 1;
