@@ -78,7 +78,7 @@
         function setupLights() {
             let ambientLight = new THREE.AmbientLight(0xf0f0f0);
             scene.add(ambientLight);
-            scene.background = new THREE.Color( 0x20384F );
+            scene.background = new THREE.Color( 0x041A94 );
             let spotLight = new THREE.SpotLight(0xf0f0f0);
             spotLight.position.set( 100, 1000, 100 );
             spotLight.castShadow = true;
@@ -111,13 +111,13 @@
                     object.scale.set(0.035,0.035,0.035);
                     object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
                     var material = new THREE.MeshToonMaterial({
-                        color: 0xD44E60
+                        color: 0xFC4F8C
                     });
                     
                 } else {
                     object.scale.set(0.01,0.01,0.01);
                     var material = new THREE.MeshToonMaterial({
-                        color: 0x4D7D80
+                        color: 0xFBE415
                     });
                 }
                 
