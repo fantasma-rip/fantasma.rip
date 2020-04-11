@@ -188,13 +188,19 @@
         $('#fecha').on('change', function () {
             $('canvas').remove();
             setup();
-            var clave = $(this).val();
+            var country = $(('#pais option:selected').val();
+            clave = $(this).val();
+            clave = new Date(clave);
+            clave = clave.toString('MM-DD-YYYY');
             conseguirdatos(clave, multiplo, country);
         });
         $('#pais').on('change', function () {
             $('canvas').remove();
             setup();
-            var clave = $(this).val();
+            clave = $('#fecha').val();
+            clave = new Date(clave);
+            clave = clave.toString('MM-DD-YYYY');
+            var clave = $("option:selected", this);
             conseguirdatos(clave, multiplo, country);
         });
         $('#centinela').click(function () {
