@@ -20,18 +20,18 @@
 
         var fecha = '';
         var muertes = '';
-        var countries = ['US','India','United Kingdom','Italy', 'China', 'Iran', 'Korea, South','Spain', 'Germany','Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Benin', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Cabo Verde', 'Cambodia', 'Cameroon', 'Canada', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Congo (Brazzaville)', 'Congo (Kinshasa)', 'Costa Rica', "Cote d'Ivoire", 'Croatia', 'Diamond Princess', 'Cuba', 'Cyprus', 'Czechia', 'Denmark', 'Djibouti', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Eswatini', 'Ethiopia', 'Fiji', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Guatemala', 'Guinea', 'Guyana', 'Haiti', 'Holy See', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Korea, South', 'Kuwait', 'Kyrgyzstan', 'Latvia', 'Lebanon', 'Liberia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Madagascar', 'Malaysia', 'Maldives', 'Malta', 'Mauritania', 'Mauritius', 'Mexico', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Morocco', 'Namibia', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Macedonia', 'Norway', 'Oman', 'Pakistan', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia', 'Rwanda', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'San Marino', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Singapore', 'Slovakia', 'Slovenia', 'Somalia', 'South Africa', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Sweden', 'Switzerland', 'Taiwan*', 'Tanzania', 'Thailand', 'Togo', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'Uruguay', 'US', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Zambia', 'Zimbabwe', 'Dominica', 'Grenada', 'Mozambique', 'Syria', 'Timor-Leste', 'Belize', 'Laos', 'Libya'];
+        var country = 'Mexico';
         var clave = '2020-4-10';
         var multiplo = 1;
 
-        conseguirdatos(clave, multiplo);
+        conseguirdatos(clave, multiplo, country);
 
         var tenerdatos = '';
         var error = '';
-        function conseguirdatos(clave, multiplo) {
+        function conseguirdatos(clave, multiplo, country) {
 
             tenerdatos = $.getJSON(datos, function (data) {
-                $.each(data.countries, function (index, value) {
+                $.each(data.[country]], function (index, value) {
                     if (value.date == clave) {
                         fecha = value.date;
                         muertes = value.deaths * multiplo;
@@ -177,19 +177,19 @@
             $('canvas').remove();
             setup();
             var clave = $('#estado').val();
-            conseguirdatos(clave, multiplo);
+            conseguirdatos(clave, multiplo, country);
         });
         $('.prevarr').click(function () {
             $('canvas').remove();
             setup();
             var clave = $('#estado').val();
-            conseguirdatos(clave, multiplo);
+            conseguirdatos(clave, multiplo, country);
         });
-        $('#estado').on('change', function () {
+        $('#pais').on('change', function () {
             $('canvas').remove();
             setup();
             var clave = $(this).val();
-            conseguirdatos(clave, multiplo);
+            conseguirdatos(clave, multiplo, country);
         });
         $('#centinela').click(function () {
             if($(this).hasClass('activo')){
@@ -198,14 +198,14 @@
                 $('canvas').remove();
                 setup();
                 multiplo = 1;
-                conseguirdatos(clave, multiplo);
+                conseguirdatos(clave, multiplo, country);
             }else{
                 $(this).addClass('activo');
                 $(this).html('Activar escala 1 : 1');
                 $('canvas').remove();
                 setup();
                 multiplo = 8.2;
-                conseguirdatos(clave, multiplo);
+                conseguirdatos(clave, multiplo, country);
             }
         });
 
