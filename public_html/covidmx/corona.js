@@ -22,7 +22,7 @@
         var confirmados = '';
         var muertes = '';
         var clave = '2020-04-10';
-        var multiplo = 1;
+        var multiplo = 8.2;
 
         conseguirdatos(clave, multiplo);
 
