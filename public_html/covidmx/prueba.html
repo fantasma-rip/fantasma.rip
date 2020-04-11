@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Humans vs COVID-19 en México :: Fantasma en la Máquina</title>
+    <meta name="title" content="Humans vs COVID-19 en México por fecha :: Fantasma en la Máquina">
+    <meta name="description"
+        content="Visualizador de individuos en 3D coronavirus covid-19 por fecha en méxico.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fantasma.rip/covidmx/">
+    <meta property="og:title" content="Humans vs COVID-19 en México por fecha :: Fantasma en la Máquina">
+    <meta property="og:description"
+        content="Visualizador de individuos en 3D coronavirus covid-19 por fecha en méxico.">
+    <meta property="og:image" content="https://fantasma.rip/covidmx/assets/facebook.png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fantasma.rip/covidmx/">
+    <meta property="twitter:title" content="Humans vs COVID-19 en México por fecha :: Fantasma en la Máquina">
+    <meta property="twitter:description"
+        content="Visualizador de individuos en 3D coronavirus covid-19 por fecha en méxico.">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3171852-60"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-3171852-60');
+    </script>
+
+    <meta property="twitter:image" content="https://fantasma.rip/covidmx/assets/facebook.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+        integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://fantasma.rip/covidmx/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://fantasma.rip/covidmx/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://fantasma.rip/covidmx/assets/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#101010">
+    <link rel="stylesheet" href="corona.css">
+</head>
+
+<body>
+    <div class="wrappi" id="wrappi">
+        <input type="date" id="estado" name="estado" value="2020-04-10" min="2020-03-12" max="2020-04-10">
+        <div class="texto1"><b id="muertes"><span>0</span> muertes</b> por COVID-19 en <b id="aqui">México</b> el  <b id="fecha">12 - 03 - 2020</b>.</div>
+        <div class="texto3">México es de los países con menos pruebas de COVID-19, los datos de la Secretaría de Salud solo son referencia.</div>
+        <div class="texto2">made by <a href="https://twitter.com/omarolaes" target="_blank">ömer</a> from <a
+                href="https://fantasma.rip" target="_blank">Fantasma en la Máquina</a></div>.
+        <div class="nextarr"><i class="fas fa-angle-right"></i></div>
+        <div class="prevarr"><i class="fas fa-angle-left"></i></div>
+        <div id="centinela">Activar escala 1 : 8</div>
+    </div>
+
+    <script src="/covidmx/assets/three.js"></script>
+    <script src="/covidmx/assets/OBJLoader.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/three@0.85.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+        integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <script src="prueba.js"></script>
+
+</body>
+
+</html>
