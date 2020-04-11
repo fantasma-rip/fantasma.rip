@@ -60,7 +60,7 @@
         function setupCamera() {
             let res = window.innerWidth / window.innerHeight;
             camera = new THREE.PerspectiveCamera( 75, res, 0.1, 1000);
-            camera.position.z = 15;
+            camera.position.z = 12;
         }
 
         function setupRenderer() {
@@ -76,16 +76,12 @@
         }
 
         function setupLights() {
-            let ambientLight = new THREE.AmbientLight(0x353535);
+            let ambientLight = new THREE.AmbientLight(0x151515);
             scene.add(ambientLight);
             let spotLight = new THREE.SpotLight(0xffffff);
-            spotLight.position.set( -10, -10, -10);
+            spotLight.position.set( 100, 1000, 100 );
             spotLight.castShadow = true;
             scene.add(spotLight);
-            let spotLight2 = new THREE.SpotLight(0xf0f0f0);
-            spotLight2.position.set( 10, 10, 10);
-            spotLight2.castShadow = true;
-            scene.add(spotLight2);
         }
 
         function imprimir(fecha, confirmados,
@@ -119,10 +115,9 @@
                 } else {
                     object.scale.set(0.01,0.01,0.01);
                     var material = new THREE.MeshToonMaterial({
-                        color: 0xC3DDDF
+                        color: 0x656565
                     });
                 }
-                if ($(window).width() < 960) {} else {}
                 
                 object.traverse( ( obj ) => {
 
