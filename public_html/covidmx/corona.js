@@ -89,55 +89,46 @@
             muertes) {
 
 
+
             let loader = new THREE.OBJLoader();
             let url = "models/humano.obj"
-            var R = 20;
-
-
-            for (let i = 0; i < confirmados;) {
-                var posiciones = (Math.random() - 0.5) * R * 2 * Math.random();
-                var posiciones2 = (Math.random() - 0.5) * R * 2 * Math.random();
-                var posiciones3 = (Math.random() - 0.5) * R * 2 * Math.random();
-
-                var geometry = new THREE.SphereGeometry( 20, 32, 32 );
-                var material = new THREE.MeshBasicMaterial({ color: 0xcc1c1c, wireframe: true });
-                var figura = new THREE.Mesh( geometry, material);
-
-                figura.rotation.z = (Math.random() - 45) * R * 235 * Math.random();
-				figura.position.set(posiciones, posiciones2, posiciones3);
-
-                var distance_squared = figura.position.x * figura.position.x + figura.position.y * figura.position.y + figura.position.z * figura.position.z;
-
-                if (distance_squared <= R * R) {
-                    scene.add(figura);
-                    ++i;
-                }
-            }
-
-
 
             loader.load(
                 url,
                 object => {
 
-            for (let i = 0; i < muertes;) {
+
+            var R = 20;
+            var pop = confirmados + muertes;
+            for (let i = 0; i < pop;) {
                 var posiciones = (Math.random() - 0.5) * R * 2 * Math.random();
                 var posiciones2 = (Math.random() - 0.5) * R * 2 * Math.random();
                 var posiciones3 = (Math.random() - 0.5) * R * 2 * Math.random();
 
                 object = object.clone();
 
-                object.scale.set(0.025,0.025,0.025);
-                object.rotation.z = (Math.random() - 45) * R * 235 * Math.random();
-                var material = new THREE.MeshLambertMaterial({
-                    color: 0xdc2525
-                });
+                if (i < muertes) {
+                    object.scale.set(0.025,0.025,0.025);
+                    object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
+                    var material = new THREE.MeshLambertMaterial({
+                        color: 0xF44D41
+                    });
                     
+                } else {
+                    object.scale.set(0.005,0.005,0.005);
+                    var material = new THREE.MeshBasicMaterial({
+                        color: 0x093395
+                    });
+                }
+                
                 object.traverse( ( obj ) => {
+
                     if ( obj instanceof THREE.Mesh ) obj.material = material;
+                
                 } );
 
 				object.position.set(posiciones, posiciones2, posiciones3);
+
 
                 var distance_squared = object.position.x * object.position.x + object.position.y * object.position.y + object.position.z * object.position.z;
 
