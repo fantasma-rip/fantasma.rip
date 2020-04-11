@@ -76,9 +76,10 @@
         }
 
         function setupLights() {
-            let ambientLight = new THREE.AmbientLight(0x35303D);
+            let ambientLight = new THREE.AmbientLight(0xf0f0f0);
             scene.add(ambientLight);
-            let spotLight = new THREE.SpotLight(0xffffff);
+            scene.background = new THREE.Color( 0x571117 );
+            let spotLight = new THREE.SpotLight(0xf0f0f0);
             spotLight.position.set( 100, 1000, 100 );
             spotLight.castShadow = true;
             scene.add(spotLight);
@@ -108,6 +109,7 @@
 
                 if (i < muertes) {
                     object.scale.set(0.035,0.035,0.035);
+                    object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
                     var material = new THREE.MeshToonMaterial({
                         color: 0xD44E60
                     });
@@ -127,7 +129,6 @@
 
 				object.position.set(posiciones, posiciones2, posiciones3);
 
-                object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
 
                 var distance_squared = object.position.x * object.position.x + object.position.y * object.position.y + object.position.z * object.position.z;
 
