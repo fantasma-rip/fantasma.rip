@@ -116,20 +116,20 @@ input#fecha {
     line-height: 1;
     cursor: pointer;
 }
-.pais_select {
+.p_se {
     color: black;
     flex: 1 50%;
     font-size: 12px;
     padding: 1vw;
     text-align: left;
 }
-.pais_select.activo{
+.p_se.activo{
     border: 1px solid #dc2525;
 }
-.pais_select b{
+.p_se b{
     margin-right: 2vw;
 }
-.pais_select span{
+.p_se span{
     display: none
 }
 .texto1 {

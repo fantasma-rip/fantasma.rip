@@ -179,10 +179,10 @@
         });
         */
         $('.paises::before').click(function () {
-            $(this).toggleClass('activo');
+            $('.paises').addClass('activo');
         });
        
-        $('.pais_select').click(function () {
+        $('.p_se').click(function () {
             $(this).parent().removeClass('activo');
             $(this).toggleClass('activo');
             $('canvas').remove();
