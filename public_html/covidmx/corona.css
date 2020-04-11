@@ -87,13 +87,29 @@ input#fecha {
     left: 0;
     height: 20vh;
     z-index: 9;
-    height: 0;
     display: flex;
     flex-flow: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.paises::before{
+    content: 'Mexico';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 12px;
+    text-align: center;
 }
 .pais_select {
     color: white;
     flex: 1;
+    font-size: 5vw;
+    padding: 2vw;
+}
+.pais_select span{
+    display: none
 }
 .texto1 {
     margin: 0;
