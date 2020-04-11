@@ -20,7 +20,7 @@
 
         var fecha = '';
         var muertes = '';
-        var clave = '2020-04-10';
+        var clave = '2020-4-10';
         var multiplo = 1;
 
         conseguirdatos(clave, multiplo);
