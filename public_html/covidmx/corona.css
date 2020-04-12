@@ -41,7 +41,7 @@ div#centinela {
     border: 1px solid #333333;
 }
 div#centinela.activo{
-    border: 1px solid #6CBDA;
+    border: 1px solid #C6CBDA;
 }
 #pais {
     display: block;
@@ -152,7 +152,7 @@ input#fecha {
 }
 
 .texto1 #muertes {
-    color: #6CBDA;
+    color: #C6CBDA;
 }
 
 .texto2 {
@@ -219,7 +219,7 @@ input#fecha {
 }
 
 .datos .estadogrph:hover {
-    background: #6CBDA;
+    background: #C6CBDA;
     opacity: 1;
 }
 
@@ -255,7 +255,7 @@ input#fecha {
     position: fixed;
     bottom: 5.5vh;
     right: 0;
-    color: #6CBDA;
+    color: #C6CBDA;
     padding: 0;
     z-index: 9999;
     cursor: pointer;
@@ -269,7 +269,7 @@ input#fecha {
     position: fixed;
     bottom: 5.5vh;
     left: 0;
-    color: #6CBDA;
+    color: #C6CBDA;
     padding: 0;
     z-index: 9999;
     cursor: pointer;
