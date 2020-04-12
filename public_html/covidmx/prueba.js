@@ -103,7 +103,7 @@
 
                 object = object.clone();
 
-                object.scale.set(0.00025 * muertes,0.00025 * muertes,0.00025 * muertes);
+                object.scale.set(0.025 / muertes,0.025 / muertes,0.025 / muertes);
                 object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
                 var material = new THREE.MeshNormalMaterial({
                 });
