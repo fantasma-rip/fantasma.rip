@@ -9,7 +9,7 @@ body {
     padding: 0;
     width: 100%;
     font-family: 'Inria Sans', sans-serif;
-    background: #0d0d0d;
+    background: #d6d6d6;
 }
 
 h1,
@@ -118,13 +118,22 @@ input#fecha {
 }
 .p_se {
     color: black;
-    flex: 1 50%;
     font-size: 12px;
-    padding: 1vw;
+    padding: 0 10px;
     text-align: left;
+    display: flex;
+    cursor: pointer;
+    line-height: 1;
+    align-items: center;
+    border-right: 1px dotted #ccc;
+    align-content: center;
 }
+.p_se:hover,
 .p_se.activo{
-    border: 1px solid #dc2525;
+    border: 1px solid #e7e7e7;
+}
+.p_se:hover b{
+    opacity: 0;
 }
 .p_se b{
     margin-right: 2vw;
