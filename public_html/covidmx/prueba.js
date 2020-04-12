@@ -140,6 +140,7 @@
 
         function draw() {
             camera.position.z -= 0.001;
+            camera.rotate.z -= 0.001;
             requestAnimationFrame(draw);
             renderer.render(scene, camera);
         }
