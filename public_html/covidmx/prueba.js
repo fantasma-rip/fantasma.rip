@@ -189,7 +189,7 @@
             $('canvas').remove();
             setup();
             var country = $(this).find('p').html();
-            $('#pais').html(country);
+            $('#paisponer').html(country);
             var clave = '2020-4-10';
             var multiplo = 1;
             conseguirdatos(clave, multiplo, country);
