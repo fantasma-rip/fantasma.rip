@@ -103,10 +103,9 @@
 
                 object = object.clone();
 
-                object.scale.set(5/muertes,5/muertes,5/muertes);
+                object.scale.set(35/muertes,35/muertes,35/muertes);
                 object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
-                var material = new THREE.MeshLambertMaterial({
-                    color: 0xF7F7F8
+                var material = new THREE.MeshNormalMaterial({
                 });
 
                 object.traverse( ( obj ) => {
