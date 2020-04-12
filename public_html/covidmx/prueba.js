@@ -94,7 +94,7 @@
                 object => {
 
 
-            var R = 20;
+            var R = 50/muertes;
 
             for (let i = 0; i < muertes;) {
                 var posiciones = (Math.random() - 0.5) * R * 2 * Math.random();
