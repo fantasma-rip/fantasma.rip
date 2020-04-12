@@ -105,8 +105,8 @@
 
                 object.scale.set(0.025,0.025,0.025);
                 object.rotation.z = (Math.random() - 0.5) * R * 360 * Math.random();
-                var material = new THREE.MeshBasicMaterial({
-                    color: 0xF44D41
+                var material = new THREE.MeshToonMaterial({
+                    color: 0x151515
                 });
 
                 object.traverse( ( obj ) => {

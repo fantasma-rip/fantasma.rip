@@ -9,7 +9,7 @@ body {
     padding: 0;
     width: 100%;
     font-family: 'Inria Sans', sans-serif;
-    background: #d6d6d6;
+    background: #F7F7F8;
 }
 
 h1,
@@ -31,7 +31,7 @@ div#centinela {
     left: 50%;
     transform: translate(-50%);
     z-index: 9;
-    color: #DFE4E5;
+    color: #F7F7F8;
     text-transform: uppercase;
     padding: 5px 15px;
     font-size: 12px;
@@ -41,7 +41,7 @@ div#centinela {
     border: 1px solid #333333;
 }
 div#centinela.activo{
-    border: 1px solid #dc2525;
+    border: 1px solid #6CBDA;
 }
 #pais {
     display: block;
@@ -89,7 +89,7 @@ input#fecha {
     left: 0;
     height: calc(100vh - 65px);
     z-index: 99;
-    background: white;
+    background: #F7F7F8;
     color: black;
     display: flex;
     flex-flow: wrap;
@@ -126,7 +126,7 @@ input#fecha {
 }
 .texto1 {
     margin: 0;
-    background:#f0f0f0;
+    background:#F7F7F8;
     color: #151515;
     padding: 0vh 4vw;
     font-size: 14px;
@@ -152,7 +152,7 @@ input#fecha {
 }
 
 .texto1 #muertes {
-    color: #dc2525;
+    color: #6CBDA;
 }
 
 .texto2 {
@@ -219,7 +219,7 @@ input#fecha {
 }
 
 .datos .estadogrph:hover {
-    background: #dc2525;
+    background: #6CBDA;
     opacity: 1;
 }
 
@@ -255,7 +255,7 @@ input#fecha {
     position: fixed;
     bottom: 5.5vh;
     right: 0;
-    color: #dc2525;
+    color: #6CBDA;
     padding: 0;
     z-index: 9999;
     cursor: pointer;
@@ -269,7 +269,7 @@ input#fecha {
     position: fixed;
     bottom: 5.5vh;
     left: 0;
-    color: #dc2525;
+    color: #6CBDA;
     padding: 0;
     z-index: 9999;
     cursor: pointer;
