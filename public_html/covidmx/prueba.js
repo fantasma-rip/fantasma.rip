@@ -93,15 +93,17 @@
                 url,
                 object => {
 
-if(muertes < 500){
-    var R = 100;
-}else if(muertes > 500 && muertes > 2500){
-    var R = 50;
-}else if(muertes > 2500 && muertes > 5000){
-    var R = 10;
-}else{
-    var R = 5;
-}
+                    if(muertes < 250){
+                        var R = 250;
+                    }else if(muertes > 250 && muertes > 500){
+                        var R = 100;
+                    }else if(muertes > 500 && muertes > 2500){
+                        var R = 10;
+                    }else if(muertes > 2500 && muertes > 5000){
+                        var R = 5;
+                    }else{
+                        var R = 2;
+                    }
 
             for (let i = 0; i < muertes;) {
                 var posiciones = (Math.random() - 0.5) * R * 2 * Math.random();
