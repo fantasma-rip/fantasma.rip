@@ -126,7 +126,7 @@ input#fecha {
 }
 .texto1 {
     margin: 0;
-    background:#F7F7F8;
+    background: linear-gradient(to bottom, rgba(247, 247, 248, 0.5), transparent);
     color: #151515;
     padding: 0vh 4vw;
     font-size: 14px;
