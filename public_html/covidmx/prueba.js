@@ -94,7 +94,7 @@
                 object => {
 
 
-            var R = 50/muertes;
+            var R = 500/muertes;
 
             for (let i = 0; i < muertes;) {
                 var posiciones = (Math.random() - 0.5) * R * 2 * Math.random();
@@ -139,8 +139,7 @@
         }
 
         function draw() {
-            camera.position.z -= 0.001;
-            camera.rotate.z -= 0.001;
+            camera.rotate.x -= 0.01;
             requestAnimationFrame(draw);
             renderer.render(scene, camera);
         }
