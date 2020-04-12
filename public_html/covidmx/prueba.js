@@ -58,7 +58,7 @@
         function setupCamera() {
             let res = window.innerWidth / window.innerHeight;
             camera = new THREE.PerspectiveCamera( 75, res, 0.1, 1000);
-            camera.position.z = 12;
+            camera.position.z = 25;
         }
 
         function setupRenderer() {
@@ -94,7 +94,7 @@
                 object => {
 
 
-            var R = 500/muertes;
+            var R = 50/muertes;
 
             for (let i = 0; i < muertes;) {
                 var posiciones = (Math.random() - 0.5) * R * 2 * Math.random();
@@ -139,7 +139,7 @@
         }
 
         function draw() {
-            camera.rotate.x -= 0.01;
+            camera.position.z -= 0.01;
             requestAnimationFrame(draw);
             renderer.render(scene, camera);
         }
