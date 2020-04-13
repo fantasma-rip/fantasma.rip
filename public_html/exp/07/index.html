@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Virtual COVID-19 :: Fantasma en la Máquina</title>
+    <meta name="title" content="Virtual COVID-19 :: Fantasma en la Máquina">
+    <meta name="description" content="Visualizador de individuos en 3D coronavirus covid-19 por fecha en méxico.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fantasma.rip/covidmx/">
+    <meta property="og:title" content="Virtual COVID-19 :: Fantasma en la Máquina">
+    <meta property="og:description"
+        content="3D THREE.js COVID-19 visualizer.">
+    <meta property="og:image" content="https://fantasma.rip/covidmx/assets/facebook.png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fantasma.rip/covidmx/">
+    <meta property="twitter:title" content="3D THREE.js COVID-19 visualizer">
+    <meta property="twitter:description"
+        content="3D THREE.js COVID-19 visualizer">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3171852-60"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-3171852-60');
+    </script>
+
+    <meta property="twitter:image" content="https://fantasma.rip/covidmx/assets/facebook.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+        integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#101010">
+    <link rel="stylesheet" href="exp07.css">
+</head>
+
+<body>
+    <div class="wrappi" id="wrappi">
+        <div class="texto1"><b id="muertes"><span>0</span> deaths</b> by COVID-19 in <b id="paisponer">Mexico</b>.</div>
+        <div class="texto3">a.</div>
+        <div class="texto2">made by <a href="https://twitter.com/omarolaes" target="_blank">ömer</a> from <a
+                href="https://fantasma.rip" target="_blank">Fantasma en la Máquina</a></div>.
+    </div>
+
+    <script src="models/three.js"></script>
+    <script src="models/OBJLoader.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/three@0.85.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+        integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <script src="exp07.js"></script>
+
+</body>
+
+</html>

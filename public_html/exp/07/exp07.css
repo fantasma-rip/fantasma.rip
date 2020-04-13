@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans&family=Rubik+Mono+One&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: 'Inria Sans', sans-serif;
+    background: #F7F7F8;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Rubik Mono One', sans-serif;
+}
+
+
+.prevarr,
+.nextarr{
+    display: none;
+}
+div#centinela {
+    background: rgba(0, 0, 0, 0.85);
+    width: 265px;
+    position: fixed;
+    bottom: 110px;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 9;
+    color: #F7F7F8;
+    text-transform: uppercase;
+    padding: 5px 15px;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 2px;
+    border-radius: 4px;
+    border: 1px solid #333333;
+}
+div#centinela.activo{
+    border: 1px solid #C6CBDA;
+}
+#pais {
+    display: block;
+    margin: 1vw 0;
+    font-weight: 100;
+    font-size: 14px;
+    text-transform: uppercase;
+    width: 80vw;
+    max-width: 500px;
+    cursor: pointer;
+    position: fixed;
+    letter-spacing: 1px;
+    top: 15vh;
+    z-index: 999999;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+input#fecha {
+    display: none;
+    margin: 1vw 0;
+    font-weight: 100;
+    font-size: 14px;
+    text-transform: uppercase;
+    width: 80vw;
+    max-width: 500px;
+    cursor: pointer;
+    position: fixed;
+    letter-spacing: 1px;
+    bottom: 5vh;
+    z-index: 999999;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.paises {
+    width: 100%;
+    bottom: -150vh;
+    position: fixed;
+    overflow: scroll;
+    transition: ease all 500ms;
+    left: 0;
+    height: calc(100vh - 65px);
+    z-index: 99;
+    background: #F7F7F8;
+    color: black;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.paises.activo{
+    bottom: 0;
+}
+.p_se {
+    color: black;
+    font-size: 12px;
+    padding: 0 10px;
+    text-align: left;
+    display: flex;
+    cursor: pointer;
+    line-height: 1;
+    align-items: center;
+    border-right: 1px dotted #ccc;
+    align-content: center;
+}
+.p_se:hover,
+.p_se.activo{
+    background: #c0c0c0;
+}
+.p_se:hover b{
+    opacity: 0;
+}
+.p_se b{
+    margin-right: 2vw;
+}
+.p_se span{
+    display: none
+}
+.texto1 {
+    margin: 0;
+    background: linear-gradient(to bottom, rgba(247, 247, 248, 0.5), transparent);
+    color: #151515;
+    padding: 0vh 4vw;
+    font-size: 14px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    text-align: center;
+    width: 100%;
+    height: 65px;
+    line-height: 65px;
+}
+
+.texto1 b {
+    margin: 0;
+}
+
+.texto1 b span {}
+
+.texto1 #infectados {
+    color: #093395;
+}
+
+.texto1 #muertes {
+    color: #6775fc;
+}
+
+.texto2 {
+    margin: 1vw;
+    font-size: 10px;
+    color: #888;
+    position: fixed;
+    z-index: 9;
+    bottom: 10px;
+    right: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.texto2 a {
+    color: #757575;
+}
+
+.texto3 {
+    margin: 1vw;
+    font-size: 10px;
+    color: #888;
+    position: fixed;
+    z-index: 9;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 5px 20px;
+    text-align: center;
+}
+
+.texto3 a {
+    color: #6b6b6b;
+}
+
+.datos {
+    overflow: hidden;
+    z-index: 9;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    top: 50%;
+    height: auto;
+    pointer-events: none;
+    transform: translateY(-50%);
+    left: 0;
+}
+
+.datos .estadogrph {
+    font-family: monospace;
+    padding: 0;
+    font-size: 0;
+    margin: 0vw;
+    width: 3.12vw;
+    flex: none;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    background: #303532;
+    opacity: 0.05;
+    transition: ease all 100ms;
+}
+
+.datos .estadogrph:hover {
+    background: #C6CBDA;
+    opacity: 1;
+}
+
+.datos .estadogrph span {
+    opacity: 0;
+    position: absolute;
+    width: 5vw;
+    font-size: 1.2vw;
+    font-weight: bold;
+    line-height: 5vw;
+    height: 5vw;
+    left: -2.5vw;
+    border-radius: 50%;
+}
+
+.datos .estadogrph:hover span {
+    opacity: 1;
+}
+
+.datos .estadogrph span.confirmed {
+    border: 1px solid #093395;
+    color: #093395;
+    top: -8vw;
+}
+
+.datos .estadogrph span.deaths {
+    border: 1px solid #0d0d0d;
+    color: #0d0d0d;
+    bottom: -8vw;
+}
+
+.nextarr {
+    position: fixed;
+    bottom: 5.5vh;
+    right: 0;
+    color: #C6CBDA;
+    padding: 0;
+    z-index: 9999;
+    cursor: pointer;
+    width: 10vw;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+}
+
+.prevarr {
+    position: fixed;
+    bottom: 5.5vh;
+    left: 0;
+    color: #C6CBDA;
+    padding: 0;
+    z-index: 9999;
+    cursor: pointer;
+    width: 10vw;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: grab;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+}
+
+.wrappi {
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+    display: block;
+    position: relative;
+}
