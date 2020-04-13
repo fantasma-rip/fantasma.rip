@@ -102,6 +102,7 @@ input#fecha {
 .p_se {
     color: black;
     font-size: 12px;
+    height: 25px;
     padding: 0 10px;
     text-align: left;
     display: flex;
