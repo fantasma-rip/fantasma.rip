@@ -21,7 +21,7 @@
         var fecha = '';
         var muertes = '';
         var country = 'Mexico';
-        var clave = '2020-4-10';
+        var clave = '2020-4-12';
         var multiplo = 1;
 
         conseguirdatos(clave, multiplo, country);
